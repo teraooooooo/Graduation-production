@@ -15,5 +15,9 @@ def index():
 def list():
     return render_template('list.html')
 
+@app.route('/list2')
+def list2():
+    return render_template('list2.html')
+    
 if __name__ == "__main__":
     app.run(debug=True)
