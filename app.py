@@ -28,5 +28,10 @@ def dbtest():
     return render_template('dbtest.html', page_title=page_title)
 
 
+@app.errorhandler(404)
+def notfound(code):
+    return
+
+
 if __name__ == "__main__":
     app.run(debug=True)
