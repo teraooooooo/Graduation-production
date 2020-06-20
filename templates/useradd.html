@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form action="/useradd" method="POST">
+    <ul>
+        <li>
+            <label for="name">名前：</label>
+            <input type="text" name="name" size="100" naxlength="100">
+        </li>
+        <li>
+            <label for="adress">アドレス：</label>
+            <input type="adress" name="adress" size="100" naxlength="100">
+        </li>
+        <li>
+            <label for="password">パス：</label>
+            <input type="password" name="password" size="100" naxlength="100">
+        </li>
+    </ul>
+    <input type="submit" value="送信" name="save">
+</form>
+
+{% endblock %}
