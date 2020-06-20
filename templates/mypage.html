@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="title">マイページ</div>
+<div class="mypg_box1">
+    <div class="f_item1">ユーザー名</div>
+    <div class="f_item2">＊＊＊＊</div>
+    <div class="f_item3"><button>編集</button></div>
+</div>
+<div class="mypg_box1">
+    <div class="f_item1">メールアドレス</div>
+    <div class="f_item2">＊＊＊＊</div>
+    <div class="f_item3"><button>編集</button></div>
+</div>
+<div class="mypg_box1">
+    <div class="f_item1">パスワード</div>
+    <div class="f_item2">＊＊＊＊</div>
+    <div class="f_item3"><button>編集</button></div>
+</div>
+
+<!--日付・タイトルはDBからselect -->
+{% for item in pages %}
+<div class="mypg_box2">
+    <div class="my_item">{{item["area"]}}</div>
+    <div class="my_item1">{{item["month"]}}/{{item["day"]}}</div>
+    <div class="my_item2">{{item["title"]}}</div>
+    <div class="my_item3">編集する</div>
+    <div class="my_item4">削除する</div>
+</div>
+{% endfor %}
+
+{% endblock %}
