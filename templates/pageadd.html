@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form action="/pageadd" method="POST">
+    <ul>
+        <li>
+            <label for="title">タイトル：</label>
+            <input type="text" name="title" size="50" naxlength="50">
+        </li>
+        <li>
+            <label for="month">月：</label>
+            <input type="NTEGER" name="month" size="2" naxlength="2">
+        </li>
+        <li>
+            <label for="date">日：</label>
+            <input type="NTEGER" name="date" size="2" naxlength="2">
+        </li>
+        <li>
+            <label for="prefecture">都道府県：</label>
+            <input type="NTEGER" name="prefecture" size="50" naxlength="50">
+        </li>
+        <li>
+            <label for="editpass">編集パス：</label>
+            <input type="password" name="editpass" size="50" naxlength="50">
+        </li>
+    </ul>
+    <input type="submit" value="送信" name="save">
+</form>
+
+{% endblock %}
