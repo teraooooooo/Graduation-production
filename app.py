@@ -103,7 +103,7 @@ def login_post():
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
     c.execute("select id from users where name = ? and pass = ?",
-              (adress, password))
+              (name, password))
     user_id = c.fetchone()
     c.close()
 
