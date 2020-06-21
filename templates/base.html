@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>いい旅夢気分♪チーム</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 
 <body>
-    <p>base.htmmlより</p>
-    {% block content %}
-    {% endblock %}
+	<header>
+		<div class="menu">
+			<div class="menu_item"><a href="/">TOP</a></div>
+			<div class="menu_item"><a href="/login">ログイン</a></div>
+			<div class="menu_item"><a href="/mypage">Myページ</a></div>
+			<div class="menu_item"><a href="/useradd">アカウント作成</a></div>
+			<div class="menu_item"><a href="/pageadd">記事作成</a></div>
+		</div>
+	</header>
+
+	{% block content %}
+	{% endblock %}
+
+    <footer>
+		<p class="copyright">Copyright &copy; 夜E3 all rights reserved.</p>
+	</footer>
 
 </body>
 

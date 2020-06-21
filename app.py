@@ -1,10 +1,78 @@
-from datetime import datetime
-import os
-import sqlite3
 from flask import Flask, render_template, request, session, redirect
+import sqlite3
+import os
+from datetime import datetime
+<< << << < HEAD
+== == == =
+>>>>>> > 4ddf7d886157a3f2cbff52e67ca1fd8788ade637
 
 app = Flask(__name__)
 app.secret_key = "graduathion"
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# 記事詳細ページの記事呼び出し
+
+
+@app.route('/main')
+def main():
+    conn = sqlite3.connect('flaskapp.db')
+    c = conn.cursor()
+    c.execute("select image, content, datetime from post where flag=0 and pageID=1")
+    story = []
+    for row in c.fetchall():
+        story.append({"image": row[0], "content": row[1], "datetime": row[2]})
+    c.close()
+    print(story)
+    return render_template('main.html', story=story)
+
+# マイページ
+# @app.route('/mypage')
+    # 同時に作動させる方法がわかるまでコメントアウト
+    # ユーザー名・メールアドレス・パスワード表示
+# def mypage():
+#     conn = sqlite3.connect('flaskapp.db')
+#     c = conn.cursor()
+#     c.execute("select name, mail, user_pass from users where id=1")
+#     user_info = c.fetchone()
+#     c.close()
+#     print(user_info)
+#     return render_template('mypage.html', user_info = user_info)
+
+# マイページの記事一覧表示
+
+
+@app.route('/mypage')
+def mypage():
+    conn = sqlite3.connect('flaskapp.db')
+    c = conn.cursor()
+    c.execute("select prefectures, month, date, title from page where flag=0")
+    page = []
+    for row in c.fetchall():
+        page.append({"area": row[0], "month": row[1],
+                     "date": row[2], "title": row[3]})
+    c.close()
+    print(page)
+    return render_template('mypage.html', page=page)
+
+# 記事一覧ページ
+
+
+@app.route('/thread')
+def thread():
+    conn = sqlite3.connect('flaskapp.db')
+    c = conn.cursor()
+    c.execute("select prefectures, month, date, title from page where flag=0")
+    page = []
+    for row in c.fetchall():
+        page.append({"area": row[0], "month": row[1],
+                     "date": row[2], "title": row[3]})
+    c.close()
+    print(page)
+    return render_template('thread.html', page=page)
 
 
 @app.route("/useradd")  # ユーザー登録画面の表示
@@ -42,8 +110,9 @@ def login_post():
     password = request.form.get("password")
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
-    c.execute("select id from users where adress = ? and pass = ?",
-              (adress, password))
+
+    c.execute("select id from users where name = ? and pass = ?",
+              (name, password))
     user_id = c.fetchone()
     c.close()
 
@@ -105,6 +174,9 @@ def pageadd_post():
     return "ページ登録完了"  # 記事一覧へ変更
 
 
+<< << << < HEAD
+
+
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
 def postadd_get(pageiad):
     return render_template("postadd.html")
@@ -152,7 +224,7 @@ def postadd_post(pageid):
     else:
         return "passが間違っております"
 
-# 画像の保存場所をstaticsのimgい指定
+# 画像の保存場所をstaticsのimg
 
 
 def get_save_path():

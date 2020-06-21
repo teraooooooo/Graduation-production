@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="title">記事一覧</div>
+    <div class="box">
+      <!-- 都道府県名はdbから呼び出して表示 -->
+      <div class="area"><p>北海道</p></div>
+      <!-- メニューの月で記事をselectする -->
+      <div class="month">
+        <form action="#" method="post">
+          <select name="month">
+            <option value="1">１月</option>
+            <option value="2">２月</option>
+            <option value="3">３月</option>
+            <option value="4">４月</option>
+            <option value="5">５月</option>
+            <option value="6">６月</option>
+            <option value="7">７月</option>
+            <option value="8">８月</option>
+            <option value="9">９月</option>
+            <option value="10">10月</option>
+            <option value="11">11月</option>
+            <option value="12">12月</option>
+          </select>
+        </form>
+      </div>
+    </div>
+
+   <!--日付・タイトルはDBからselect -->
+   {% for item in page %}
+   <div class="box1">
+     <div class="item1">{{item["month"]}}/{{item["date"]}}</div>
+     <div class="item2">{{item["title"]}}</div>
+   </div>
+   {% endfor %}
+  
+
+{% endblock %}
