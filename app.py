@@ -1,9 +1,69 @@
+import os
 import sqlite3
 from flask import Flask, render_template, request, session, redirect
 
 
 app = Flask(__name__)
 app.secret_key = "graduathion"
+
+from datetime import datetime
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# 記事詳細ページの記事呼び出し
+@app.route('/main')
+def main():
+    conn = sqlite3.connect('flaskapp.db')
+    c = conn.cursor()
+    c.execute("select photo, text, date from story")
+    story = []
+    for row in c.fetchall():
+        story.append({"photo": row[0], "text": row[1], "date": row[2]})
+    c.close()
+    print(story)
+    return render_template('main.html', story=story)
+
+# マイページ
+# @app.route('/mypage')
+    # 同時に作動させる方法がわかるまでコメントアウト
+    # ユーザー名・メールアドレス・パスワード表示
+# def mypage():
+#     conn = sqlite3.connect('flaskapp.db')
+#     c = conn.cursor()
+#     c.execute("select name, mail, user_pass from users where id=1")
+#     user_info = c.fetchone()
+#     c.close()
+#     print(user_info)
+#     return render_template('mypage.html', user_info = user_info) 
+
+# マイページの記事一覧表示
+@app.route('/mypage')
+def mypage():
+    conn = sqlite3.connect('flaskapp.db')
+    c = conn.cursor()
+    c.execute("select area, month, day, title from pages")
+    pages = []
+    for row in c.fetchall():
+        pages.append({"area": row[0], "month": row[1], "day": row[2], "title": row[3]})
+    c.close()
+    print(pages)
+    return render_template('mypage.html', pages = pages)
+
+# 記事一覧ページ
+@app.route('/thread')
+def thread():
+    conn = sqlite3.connect('flaskapp.db')
+    c = conn.cursor()
+    c.execute("select area, month, day, title from pages")
+    pages = []
+    for row in c.fetchall():
+        pages.append({"area":row[0], "month":row[1], "day":row[2], "title":row[3]})
+    c.close()
+    print(pages)
+    return render_template('thread.html', pages = pages)
+
 
 
 @app.route("/useradd")  # ユーザー登録画面の表示
@@ -104,4 +164,4 @@ def pageadd_post():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+   app.run(debug=True)

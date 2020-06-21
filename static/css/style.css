@@ -1,0 +1,206 @@
+@charset "UTF-8";
+
+html {
+    overflow-y: scroll;
+    /* IEへの対応 http://www.htmq.com/style/overflow-y.shtml */
+    /*Internet Explorerが独自に追加したプロパティ*/
+    /*画面に収まりきれなかったときにスクロールして表示することを許可するか否か*/
+}
+
+/* リセットおまじない--------------------------------- */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+ul,
+ol,
+li,
+dl,
+dt,
+dd {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background: #fff;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.4;
+    min-width: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+li {
+    list-style: none;
+    font-size: 14px;
+}
+
+a {
+    outline: none;
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    border: 0px;
+    vertical-align: bottom;
+}
+
+/* --------------------------------------------------- */
+
+body {
+    font-family: "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", "Meiryo", "HGPｺﾞｼｯｸM", "Osaka", "ＭＳ Ｐゴシック", sans-serif, Century Gothic, Arial;
+}
+
+/* base.htmlの設定 */
+.menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+    background-color: skyblue;
+    font-size: 24px;  
+}
+
+.menu_item {
+    margin: 5px 15px;
+}
+
+
+/* ページタイトルの設定 */
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    height: 80px;
+}
+
+/* 記事一覧 thread.htmlの設定  */
+.box {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    margin: 10px 10%;
+}
+
+.box1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100px;
+    border: 1px solid skyblue;
+    margin: 10px 10%;
+}
+    
+.item1 {
+    width: 10%;
+    padding: 10px;
+    margin: 10%;
+}
+
+.item2 {
+    padding: 10px;
+    text-align: left;
+}
+
+/*  */
+.box2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-size: 24px;
+    border: 1px solid skyblue;
+    padding: 0 150px;
+    margin: 10px 50px;
+}
+
+.btn1 {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 50px;
+}
+
+.item3 {
+    padding: 0 10px;
+}
+
+.box3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: skyblue;
+    margin: 10px 200px;
+}
+
+.item5 {
+    width: 400px;
+    height: 300px;
+    margin: 20px;
+    padding: 15px;
+    background-color: steelblue;
+}
+
+.item6 {
+    width: 600px;
+    background-color: steelblue;
+ }
+
+ .item7 {
+     background-color: steelblue;
+     margin: 10px;
+ } 
+
+ /* ここから mypage  */
+ /* マイページのユーザー情報 */
+.mypg_box1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 50px;
+    margin: 10px 10%;
+}
+
+.f_item1 {
+    width: 15%;
+    padding: 10px;
+    text-align: left;
+}
+
+.f_item2 {
+    width: 20%;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+    border: 1px solid skyblue;;
+}
+
+.f_item3 {
+    padding: 10px;
+    text-align: left;
+}
+
+/* マイページの記事一覧 */
+ .mypg_box2 {
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+     height: 100px;
+     border: 1px solid skyblue;
+     margin: 10px 10%;
+}
+
+.my_item {
+    min-width: 10%;
+}
+
+.my_item2 {
+    width: 50%;
+}
