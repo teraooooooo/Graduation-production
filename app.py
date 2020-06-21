@@ -17,7 +17,7 @@ def index():
 def main():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select image, content, datetime from post")
+    c.execute("select image, content, datetime from post where flag=0 and pageID=1")
     story = []
     for row in c.fetchall():
         story.append({"image": row[0], "content": row[1], "datetime": row[2]})
@@ -43,7 +43,7 @@ def main():
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select prefectures, month, date, title from page")
+    c.execute("select prefectures, month, date, title from page where flag=0")
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
@@ -57,7 +57,7 @@ def mypage():
 def thread():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select prefectures, month, date, title from page")
+    c.execute("select prefectures, month, date, title from page where flag=0")
     page = []
     for row in c.fetchall():
         page.append({"area":row[0], "month":row[1], "date":row[2], "title":row[3]})
