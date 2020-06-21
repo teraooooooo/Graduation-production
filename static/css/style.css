@@ -72,7 +72,7 @@ body {
 }
 
 
-/* ページタイトルの設定 */
+/* 各ページ共通 ページタイトルの設定 */
 .title {
     display: flex;
     justify-content: center;
@@ -82,14 +82,15 @@ body {
 }
 
 /* 記事一覧 thread.htmlの設定  */
-.box {
+
+.box {    /* 上部メニュー */
     display: flex;
     justify-content: space-between;
     font-size: 24px;
     margin: 10px 10%;
 }
 
-.box1 {
+.box1 {    /*   記事タイトル一覧 */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -98,19 +99,20 @@ body {
     margin: 10px 10%;
 }
     
-.item1 {
+.item1 {    /* 日付 */
     width: 10%;
     padding: 10px;
     margin: 10%;
 }
 
-.item2 {
+.item2 {    /* 記事タイトル */
     padding: 10px;
     text-align: left;
 }
 
-/*  */
-.box2 {
+
+/* 記事詳細ページ main.htmlの設定 */
+.main_header {   /* 記事ヘッダ */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -121,18 +123,18 @@ body {
     margin: 10px 50px;
 }
 
-.btn1 {
+.item3 {
+    /* エリア・期間 */
+    padding: 0 10px;
+}
+
+.btn1 {     /* 投稿するボタン */
     display: flex;
     justify-content: flex-end;
     margin: 10px 50px;
 }
 
-.item3 {
-    padding: 0 10px;
-}
-
-/* 記事詳細ページmain の設定 */
-.box3 {
+.box3 {     /* 投稿表示 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -169,8 +171,7 @@ body {
  } 
 
  /* ここから mypage  */
- /* マイページのユーザー情報 */
-.mypg_box1 {
+ .mypg_box1 {    /* マイページのユーザー情報 */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -197,8 +198,7 @@ body {
     text-align: left;
 }
 
-/* マイページの記事一覧 */
- .mypg_box2 {
+.mypg_box2 {    /* マイページの記事一覧 */
      display: flex;
      justify-content: space-around;
      align-items: center;
