@@ -12,11 +12,11 @@
     <div class="btn1"><button><a href="/"></a> 投稿する</button></div>
 
     <!-- 記事はすべてDBからselect-->
-    {% for item in story %}
+    {% for item in post %}
     <div class="box3">
-      <div class="item5">{{item["photo"]}}</div>
-      <div class="item6">{{item["text"]}}</div>
-      <div class="item7">{{item["date"]}}</div>
+      <div class="item5">{{item["image"]}}</div>
+      <div class="item6">{{item["content"]}}</div>
+      <div class="item7">{{item["datetime"]}}</div>
       <div class="item8"><button>削除</button></div>
     </div>
     {% endfor %}
