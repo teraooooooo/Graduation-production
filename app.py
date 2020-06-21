@@ -2,9 +2,6 @@ from flask import Flask, render_template, request, session, redirect
 import sqlite3
 import os
 from datetime import datetime
-<< << << < HEAD
-== == == =
->>>>>> > 4ddf7d886157a3f2cbff52e67ca1fd8788ade637
 
 app = Flask(__name__)
 app.secret_key = "graduathion"
@@ -106,13 +103,13 @@ def login_get():
 
 @ app.route("/login", methods=["POST"])  # ログインページの機能実装
 def login_post():
-    adress = request.form.get("name")
+    adress = request.form.get("adresss")
     password = request.form.get("password")
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
 
     c.execute("select id from users where name = ? and pass = ?",
-              (name, password))
+              (adress, password))
     user_id = c.fetchone()
     c.close()
 
@@ -174,12 +171,9 @@ def pageadd_post():
     return "ページ登録完了"  # 記事一覧へ変更
 
 
-<< << << < HEAD
-
-
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
-def postadd_get(pageiad):
-    return render_template("postadd.html")
+def postadd_get(pageid):
+    return render_template("postadd.html", pageid=pageid)
 
 
 @app.route('/postadd/<int:pageid>', methods=["POST"])
@@ -200,29 +194,30 @@ def postadd_post(pageid):
     # コンテンツ取得
     content = request.form.get("content")
     # 投稿時間を取得
-    datetime = datetime.now().strtime("%Y/%m/%d %H:%m")
+    posttime = datetime.now().strftime("%Y/%m/%d %H:%m")
+    print(posttime)
     # パスを取得
     editpass = request.form.get("editpass")
-
-    # パスを照会するためにページIDに紐づくエディットパスを取得
+    # DB内にある編集パスを取得
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
     c.execute("SELECT editPASS from page where ID = ?", (pageid,))
     page_editpass = c.fetchone()
     page_editpass = page_editpass[0]
+    print(editpass)
     print(page_editpass)
 
-    # 入力したパスと登録されたパスが同じ場合
-    if editpass == page_editpass:
-       # 上記の filename 変数ここで使うよ
+    # 入力したパスと登録されたパスがk異なる場合
+    if editpass != page_editpass:
+        return "passが間違っております"
+    else:
+        conn = sqlite3.connect('flaskapp.db')
+        c = conn.cursor()
         c.execute("insert into post values(null,?,?,?,?,0)",
-                  (pageid, filename, content, datetime))
+                  (pageid, filename, content, posttime))
         conn.commit()
         conn.close()
         return "投稿されました"
-     # 入力したパスと登録されたパスがk異なる場合
-    else:
-        return "passが間違っております"
 
 # 画像の保存場所をstaticsのimg
 
