@@ -20,7 +20,7 @@ def main():
     c.execute("select image, content, datetime from post")
     story = []
     for row in c.fetchall():
-        story.append({"image": row[1], "content": row[2], "datetime": row[3]})
+        story.append({"image": row[0], "content": row[1], "datetime": row[2]})
     c.close()
     print(story)
     return render_template('main.html', story=story)
@@ -43,26 +43,27 @@ def main():
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select area, month, day, title from pages")
-    pages = []
+    c.execute("select prefectures, month, date, title from page")
+    page = []
     for row in c.fetchall():
-        pages.append({"area": row[0], "month": row[1], "day": row[2], "title": row[3]})
+        page.append({"area": row[0], "month": row[1],
+                     "date": row[2], "title": row[3]})
     c.close()
-    print(pages)
-    return render_template('mypage.html', pages = pages)
+    print(page)
+    return render_template('mypage.html', page = page)
 
 # 記事一覧ページ
 @app.route('/thread')
 def thread():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select area, month, day, title from pages")
-    pages = []
+    c.execute("select area, month, day, title from page")
+    page = []
     for row in c.fetchall():
-        pages.append({"area":row[0], "month":row[1], "day":row[2], "title":row[3]})
+        page.append({"area":row[0], "month":row[1], "day":row[2], "title":row[3]})
     c.close()
-    print(pages)
-    return render_template('thread.html', pages = pages)
+    print(page)
+    return render_template('thread.html', page = page)
 
 
 
@@ -160,7 +161,7 @@ def pageadd_post():
     id = id[0]
     conn.close()
     print(id)
-    return ページ登録完了  # 記事一覧へ変更
+    return "ページ登録完了"  # 記事一覧へ変更
 
 
 if __name__ == "__main__":
