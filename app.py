@@ -1,6 +1,7 @@
+from datetime import datetime
+import os
 import sqlite3
 from flask import Flask, render_template, request, session, redirect
-
 
 app = Flask(__name__)
 app.secret_key = "graduathion"
@@ -37,11 +38,11 @@ def login_get():
 
 @ app.route("/login", methods=["POST"])  # ログインページの機能実装
 def login_post():
-    name = request.form.get("name")
+    adress = request.form.get("name")
     password = request.form.get("password")
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
-    c.execute("select id from users where name = ? and pass = ?",
+    c.execute("select id from users where adress = ? and pass = ?",
               (adress, password))
     user_id = c.fetchone()
     c.close()
@@ -94,13 +95,69 @@ def pageadd_post():
     c.execute("insert into page values(null,?,?,?,?,?,?,0)",
               (user_id, editpass, title, prefecture, month, date))
     conn.commit()
+    # つくった記事詳細ページへ飛ばすだめに作成した記事IDを取得
     c.execute("SELECT ID from page where userID = ? and title = ?",
               (user_id, title))
     id = c.fetchone()
     id = id[0]
     conn.close()
     print(id)
-    return ページ登録完了  # 記事一覧へ変更
+    return "ページ登録完了"  # 記事一覧へ変更
+
+
+@app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
+def postadd_get(pageiad):
+    return render_template("postadd.html")
+
+
+@app.route('/postadd/<int:pageid>', methods=["POST"])
+def postadd_post(pageid):
+    upload = request.files['image']
+    # uploadで取得したファイル名をlower()で全部小文字にして、ファイルの最後尾の拡張子が'.png', '.jpg', '.jpeg'ではない場合、returnさせる。
+    if not upload.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+        return 'png,jpg,jpeg形式のファイルを選択してください'
+
+    # 下の def get_save_path()関数を使用して "./static/img/" パスを戻り値として取得する。
+    save_path = get_save_path()
+    # ファイルネームをfilename変数に代入
+    filename = upload.filename
+    # 画像ファイルを./static/imgフォルダに保存。 os.path.join()は、パスとファイル名をつないで返してくれます。
+    upload.save(os.path.join(save_path, filename))
+    # ファイル名が取れることを確認、あとで使うよ
+    print(filename)
+    # コンテンツ取得
+    content = request.form.get("content")
+    # 投稿時間を取得
+    datetime = datetime.now().strtime("%Y/%m/%d %H:%m")
+    # パスを取得
+    editpass = request.form.get("editpass")
+
+    # パスを照会するためにページIDに紐づくエディットパスを取得
+    conn = sqlite3.connect('flaskapp.db')
+    c = conn.cursor()
+    c.execute("SELECT editPASS from page where ID = ?", (pageid,))
+    page_editpass = c.fetchone()
+    page_editpass = page_editpass[0]
+    print(page_editpass)
+
+    # 入力したパスと登録されたパスが同じ場合
+    if editpass == page_editpass:
+       # 上記の filename 変数ここで使うよ
+        c.execute("insert into post values(null,?,?,?,?,0)",
+                  (pageid, filename, content, datetime))
+        conn.commit()
+        conn.close()
+        return "投稿されました"
+     # 入力したパスと登録されたパスがk異なる場合
+    else:
+        return "passが間違っております"
+
+# 画像の保存場所をstaticsのimgい指定
+
+
+def get_save_path():
+    path_dir = "./static/img"
+    return path_dir
 
 
 if __name__ == "__main__":
