@@ -57,10 +57,10 @@ def mypage():
 def thread():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select area, month, day, title from page")
+    c.execute("select prefectures, month, date, title from page")
     page = []
     for row in c.fetchall():
-        page.append({"area":row[0], "month":row[1], "day":row[2], "title":row[3]})
+        page.append({"area":row[0], "month":row[1], "date":row[2], "title":row[3]})
     c.close()
     print(page)
     return render_template('thread.html', page = page)

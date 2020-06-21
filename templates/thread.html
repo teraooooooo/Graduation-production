@@ -28,10 +28,10 @@
     </div>
 
    <!--日付・タイトルはDBからselect -->
-   {% for item in pages %}
+   {% for item in page %}
    <div class="box1">
-     <div class="item1">{{item["month"]}}/{{item["day"]}}</div>
-     <div class="item2">タイトルだよ{{item["title"]}}</div>
+     <div class="item1">{{item["month"]}}/{{item["date"]}}</div>
+     <div class="item2">{{item["title"]}}</div>
    </div>
    {% endfor %}
   
