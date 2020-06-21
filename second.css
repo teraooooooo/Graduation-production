@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+h1 {
+    color: black;
+    font-size: 30px;
+    margin-left: 600px;
+}
+
+.hover1:hover {
+    opacity: 0.6;
+}
+
+.container {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+
+    flex-direction: row;
+}
+
+.content {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+
+.box1 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box1 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+
+}
+
+.box2 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box2 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
+
+.box3 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box3 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
+
+.box4 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box4 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
+
+.box5 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box5 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
+
+.box6 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box6 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
