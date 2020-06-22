@@ -21,8 +21,13 @@ def all_link():
 # ちょっといじりました　0624寺尾
 
 
+<<<<<<< HEAD
 @app.route('/main/<int:pageid>')
 def main(pageid):
+=======
+@app.route('/main')
+def main():
+>>>>>>> コンフリクト修正
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
     c.execute(
