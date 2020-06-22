@@ -14,7 +14,7 @@ def index():
 # 記事詳細ページの記事呼び出し
 
 
-@app.route('/main/')
+@app.route('/main')
 def main():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
