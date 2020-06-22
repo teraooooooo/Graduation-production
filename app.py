@@ -32,6 +32,7 @@ def main():
     return render_template('main.html', page=page, story=story)
 
 # マイページ
+<<<<<<< HEAD
 # @app.route('/mypage')
     # 同時に作動させる方法がわかるまでコメントアウト
     # ユーザー名・メールアドレス・パスワード表示
@@ -45,17 +46,21 @@ def main():
 #     return render_template('mypage.html', user_info = user_info)
 
 # マイページのユーザー情報・記事一覧表示
+=======
+
+
+>>>>>>> 5f9540d84dc126e0206ac4ce36f2e6fd6886d3bc
 @app.route('/mypage')
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
     c.execute("select name, adress, pass from users where id=1")
     user_info = c.fetchone()
-    c.execute("select prefectures, month, date, title from page where flag=0")
+    c.execute("select prefectures, month, date, title, id from page where flag=0")
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
-                     "date": row[2], "title": row[3]})
+                     "date": row[2], "title": row[3], "pageid": row[4]})
     c.close()
     print(user_info)
     print(page)
@@ -77,7 +82,7 @@ def thread():
     print(page)
     return render_template('thread.html', page=page)
 
-
+ 
 @app.route("/useradd")  # ユーザー登録画面の表示
 def useraddget():
     return render_template("useradd.html")
@@ -125,27 +130,28 @@ def login_post():
      # ログインできた場合は末尾にIDをつけて新規作成ページに飛ばす
     else:
         session["user_id"] = user_id[0]
-        return "ログイン完了"
+    # 記事作成ページへ飛ばす
+        return redirect("/pageadd")
 
 
-@app.route("/ldeletepage/<int:pageid>")  # ページ削除 1が削除
+@app.route("/deletepage/<int:pageid>")  # ページ削除 1が削除
 def deletepage(pageid):
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
-    c.execute("update page set flag = 0 where id = ?", (pageid,))
+    c.execute("update page set flag = 1 where id = ?", (pageid,))
     conn.commit()
     conn.close()
-    return "マイページへ"
+    return redirect("/mypage")
 
 
-@app.route("/ldeletepost/<int:postid>")  # 投稿削除 1が削除
+@app.route("/deletepost/<int:postid>")  # 投稿削除 1が削除
 def deletepost(postid):
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
-    c.execute("update post set flag = 0 where id = ?", (postid,))
+    c.execute("update post set flag = 1 where id = ?", (postid,))
     conn.commit()
     conn.close()
-    return "投稿一覧へ"
+    return redirect("/main")
 
 
 @app.route("/pageadd")  # 記事作成の画面を表示
@@ -174,7 +180,7 @@ def pageadd_post():
     id = id[0]
     conn.close()
     print(id)
-    return "ページ登録完了"  # 記事一覧へ変更
+    return redirect("/thread")  # 記事一覧へ変更
 
 
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
@@ -223,7 +229,7 @@ def postadd_post(pageid):
                   (pageid, filename, content, posttime))
         conn.commit()
         conn.close()
-        return "投稿されました"
+        return redirect("/page/pageid")
 
 # 画像の保存場所をstaticsのimg
 
