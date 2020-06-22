@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+li {
+    list-style: none;
+}
+
+.header {
+    background-color: brown;
+}
+
+h1 {
+    font-size: 20px;
+}
