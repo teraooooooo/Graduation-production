@@ -20,13 +20,16 @@ def all_link():
 def main():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select image, content, datetime from post where flag=0 and pageID=1")
+    c.execute("select title, prefectures, month, date, period from page where ID=1")
+    page = c.fetchone()
+    c.execute("select image, content, datetime pageID from post where flag=0 and pageID=1")
     story = []
     for row in c.fetchall():
         story.append({"image": row[0], "content": row[1], "datetime": row[2]})
     c.close()
+    print(page)
     print(story)
-    return render_template('main.html', story=story)
+    return render_template('main.html', page=page, story=story)
 
 # マイページ
 # @app.route('/mypage')
@@ -41,9 +44,7 @@ def main():
 #     print(user_info)
 #     return render_template('mypage.html', user_info = user_info)
 
-# マイページの記事一覧表示
-
-
+# マイページのユーザー情報・記事一覧表示
 @app.route('/mypage')
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
@@ -237,16 +238,9 @@ def get_save_path():
 def nwe():
     return render_template('nwe.html')
 
-
-@app.route('/postadd')
-def postadd():
-    return render_template('postadd.html')
-
-
 @app.route('/top')
 def top():
     return render_template('top.html')
-
 
 @app.route('/second')
 def second():
