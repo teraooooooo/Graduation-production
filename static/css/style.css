@@ -56,11 +56,6 @@ img {
 body {
     font-family: "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", "Meiryo", "HGPｺﾞｼｯｸM", "Osaka", "ＭＳ Ｐゴシック", sans-serif, Century Gothic, Arial;
 }
-/* all-link 用 */
-.alllink {
-    margin-top: 100px;
-}
-
 
  /* clone より */
 .header {
@@ -72,13 +67,19 @@ h1 {
 }
 
 /* base.htmlの設定 */
+.base_menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: skyblue;
+    font-size: 24px; 
+}
+
 .menu {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    height: 50px;
-    background-color: skyblue;
-    font-size: 24px;  
+    align-items: center;    
 }
 
 .menu_item {
@@ -90,9 +91,10 @@ h1 {
 .title {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     font-size: 36px;
-    height: 80px;
+    height: 150px;
+    /* background-color: blue; */
 }
 
 /* 記事一覧 thread.htmlの設定  */
@@ -171,14 +173,14 @@ h1 {
 }
 
 .item6 {
-    font-size: 18px;
+    font-size: 24px;
     width: 600px;
 
     /* background-color: steelblue; */
  }
 
  .item7 {
-     font-size: 10px;
+     font-size: 18px;
      margin: 10px;
      /* background-color: steelblue; */
      
