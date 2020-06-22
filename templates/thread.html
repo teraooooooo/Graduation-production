@@ -3,9 +3,9 @@
 {% block content %}
 
     <div class="title">記事一覧</div>
-    <div class="box">
+    <div class="thread_box">
       <!-- 都道府県名はdbから呼び出して表示 -->
-      <div class="area"><p>北海道</p></div>
+      <div class="area"><p>{{area[0]}}</p></div>
       <!-- メニューの月で記事をselectする -->
       <div class="month">
         <form action="#" method="post">
