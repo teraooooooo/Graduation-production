@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import os
 from datetime import datetime
@@ -14,7 +14,7 @@ def index():
 # 記事詳細ページの記事呼び出し
 
 
-@app.route('/main')
+@app.route('/main/')
 def main():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
@@ -83,13 +83,7 @@ def useraddpost():
     c.execute("insert into users values (null,?,?,?)",
               (name, adress, password))
     conn.commit()
-    # 登録したIDを取得し、次ページに行くときに末尾に渡す
-    c.execute("select id from users where adress = ? and pass = ?",
-              (adress, password))
-    id = c.fetchone()
-    c.close()
-    # ユーザー登録完了時には末尾にIDをつけて飛ばす
-    return "ユーザー登録完了"
+    return redirect("pageadd")
 
 # ログインページの表示
 
@@ -169,7 +163,7 @@ def pageadd_post():
     id = id[0]
     conn.close()
     print(id)
-    return redirect("/thread")  # 記事一覧へ変更
+    return redirect(url_for('main', pageid=id))  # 記事詳細へ変更
 
 
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
