@@ -27,19 +27,6 @@ def main():
     return render_template('main.html', story=story)
 
 # マイページ
-# @app.route('/mypage')
-    # 同時に作動させる方法がわかるまでコメントアウト
-    # ユーザー名・メールアドレス・パスワード表示
-# def mypage():
-#     conn = sqlite3.connect('flaskapp.db')
-#     c = conn.cursor()
-#     c.execute("select name, mail, user_pass from users where id=1")
-#     user_info = c.fetchone()
-#     c.close()
-#     print(user_info)
-#     return render_template('mypage.html', user_info = user_info)
-
-# マイページの記事一覧表示
 
 
 @app.route('/mypage')
@@ -48,11 +35,11 @@ def mypage():
     c = conn.cursor()
     c.execute("select name, adress, pass from users where id=1")
     user_info = c.fetchone()
-    c.execute("select prefectures, month, date, title from page where flag=0")
+    c.execute("select prefectures, month, date, title,id from page where flag=0")
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
-                     "date": row[2], "title": row[3]})
+                     "date": row[2], "title": row[3], "pageid": row[4]})
     c.close()
     print(user_info)
     print(page)
@@ -74,13 +61,17 @@ def thread():
     print(page)
     return render_template('thread.html', page=page)
 
+ # ユーザー登録画面の表示
 
-@app.route("/useradd")  # ユーザー登録画面の表示
+
+@app.route("/useradd")
 def useraddget():
     return render_template("useradd.html")
 
+# ユーザー情報をDBに追加する
 
-@app.route("/useradd", methods=["POST"])  # ユーザー情報をDBに追加する
+
+@app.route("/useradd", methods=["POST"])
 def useraddpost():
     name = request.form.get("name")
     adress = request.form.get("adress")
@@ -98,13 +89,17 @@ def useraddpost():
     # ユーザー登録完了時には末尾にIDをつけて飛ばす
     return "ユーザー登録完了"
 
+# ログインページの表示
 
-@ app.route("/login")  # ログインページの表示
+
+@ app.route("/login")
 def login_get():
     return render_template("login.html")
 
+# ログインページの機能実装
 
-@ app.route("/login", methods=["POST"])  # ログインページの機能実装
+
+@ app.route("/login", methods=["POST"])
 def login_post():
     adress = request.form.get("adresss")
     password = request.form.get("password")
@@ -122,27 +117,28 @@ def login_post():
      # ログインできた場合は末尾にIDをつけて新規作成ページに飛ばす
     else:
         session["user_id"] = user_id[0]
-        return "ログイン完了"
+    # 記事作成ページへ飛ばす
+        return redirect("/pageadd")
 
 
-@app.route("/ldeletepage/<int:pageid>")  # ページ削除 1が削除
+@app.route("/deletepage/<int:pageid>")  # ページ削除 1が削除
 def deletepage(pageid):
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
-    c.execute("update page set flag = 0 where id = ?", (pageid,))
+    c.execute("update page set flag = 1 where id = ?", (pageid,))
     conn.commit()
     conn.close()
-    return "マイページへ"
+    return redirect("/mypage")
 
 
-@app.route("/ldeletepost/<int:postid>")  # 投稿削除 1が削除
+@app.route("/deletepost/<int:postid>")  # 投稿削除 1が削除
 def deletepost(postid):
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
-    c.execute("update post set flag = 0 where id = ?", (postid,))
+    c.execute("update post set flag = 1 where id = ?", (postid,))
     conn.commit()
     conn.close()
-    return "投稿一覧へ"
+    return redirect("/main")
 
 
 @app.route("/pageadd")  # 記事作成の画面を表示
@@ -171,7 +167,7 @@ def pageadd_post():
     id = id[0]
     conn.close()
     print(id)
-    return "ページ登録完了"  # 記事一覧へ変更
+    return redirect("/thread")  # 記事一覧へ変更
 
 
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
@@ -220,7 +216,7 @@ def postadd_post(pageid):
                   (pageid, filename, content, posttime))
         conn.commit()
         conn.close()
-        return "投稿されました"
+        return redirect("/page/pageid")
 
 # 画像の保存場所をstaticsのimg
 
