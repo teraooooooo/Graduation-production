@@ -32,7 +32,6 @@ def main():
     return render_template('main.html', page=page, story=story)
 
 # マイページ
-<<<<<<< HEAD
 # @app.route('/mypage')
     # 同時に作動させる方法がわかるまでコメントアウト
     # ユーザー名・メールアドレス・パスワード表示
@@ -46,10 +45,8 @@ def main():
 #     return render_template('mypage.html', user_info = user_info)
 
 # マイページのユーザー情報・記事一覧表示
-=======
 
 
->>>>>>> 5f9540d84dc126e0206ac4ce36f2e6fd6886d3bc
 @app.route('/mypage')
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
@@ -66,21 +63,22 @@ def mypage():
     print(page)
     return render_template('mypage.html', page=page, user_info=user_info)
 
-# 記事一覧ページ
-
-
-@app.route('/thread')
-def thread():
+# 記事一覧ページ  都道府県指定
+@app.route('/thread/<int:areaid>')
+def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
+    c.execute("select area from Prefecture where No=?", (areaid,))
+    area = c.fetchone()
     c.execute("select prefectures, month, date, title from page where flag=0")
     page = []
     for row in c.fetchall():
-        page.append({"area": row[0], "month": row[1],
+        page.append({"prefectures": row[0], "month": row[1],
                      "date": row[2], "title": row[3]})
     c.close()
+    print(area)
     print(page)
-    return render_template('thread.html', page=page)
+    return render_template('thread.html', page=page, area=area)
 
  
 @app.route("/useradd")  # ユーザー登録画面の表示
