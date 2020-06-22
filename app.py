@@ -18,10 +18,12 @@ def index():
 def main():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select image, content, datetime from post where flag=0 and pageID=1")
+    c.execute(
+        "select image, content, datetime,id from post where flag=0 and pageID=1")
     story = []
     for row in c.fetchall():
-        story.append({"image": row[0], "content": row[1], "datetime": row[2]})
+        story.append(
+            {"image": row[0], "content": row[1], "datetime": row[2], "id": row[3]})
     c.close()
     print(story)
     return render_template('main.html', story=story)
