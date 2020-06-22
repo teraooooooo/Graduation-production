@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form action="/postadd/{{pageid}}" method="POST" enctype="multipart/form-data">
+    <label for="image">画像ファイル：</label>
+    <input type="file" name="image">
+    <form action="/postadd/{{pageid}}" method="POST">
+        <ul>
+            <li>
+                <label for="content"> 本文：</label>
+                <input type="text" name="content" size="140" naxlength="140">
+            </li>
+            <li>
+                <label for="editpass"> パス：</label>
+                <input type="password" name="editpass" size="10" naxlength="100">
+            </li>
+        </ul>
+        <input type="submit" value="送信" name="save">
+
+        {% endblock %}
