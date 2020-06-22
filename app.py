@@ -46,14 +46,17 @@ def main():
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
+    c.execute("select name, adress, pass from users where id=1")
+    user_info = c.fetchone()
     c.execute("select prefectures, month, date, title from page where flag=0")
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
                      "date": row[2], "title": row[3]})
     c.close()
+    print(user_info)
     print(page)
-    return render_template('mypage.html', page=page)
+    return render_template('mypage.html', page=page, user_info=user_info)
 
 # 記事一覧ページ
 
