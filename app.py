@@ -11,9 +11,11 @@ app.secret_key = "graduathion"
 def index():
     return render_template('index.html')
 
+@app.route('/alllink')
+def all_link():
+    return render_template('alllink.html')
+
 # 記事詳細ページの記事呼び出し
-
-
 @app.route('/main')
 def main():
     conn = sqlite3.connect('flaskapp.db')
@@ -225,6 +227,28 @@ def postadd_post(pageid):
 def get_save_path():
     path_dir = "./static/img"
     return path_dir
+
+
+
+@app.route('/nwe')
+def nwe():
+    return render_template('nwe.html')
+
+
+@app.route('/postadd')
+def postadd():
+    return render_template('postadd.html')
+
+
+@app.route('/top')
+def top():
+    return render_template('top.html')
+
+
+@app.route('/second')
+def second():
+    return render_template('second.html')
+
 
 
 if __name__ == "__main__":
