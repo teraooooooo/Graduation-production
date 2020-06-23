@@ -23,15 +23,17 @@
             <option value="11">11月</option>
             <option value="12">12月</option>
           </select>
+          <input type="submit" value="月変更">
         </form>
       </div>
     </div>
+    <div>{{month}}</div>
 
    <!--日付・タイトルはDBからselect -->
    {% for item in page %}
    <div class="thread_box2">
      <div class="item1">{{item["month"]}}/{{item["date"]}}</div>
-     <div class="item2">{{item["title"]}}</div>
+     <div class="item2"><a href="/main/{{item['pageid']}}">{{item["title"]}}</a></div>
    </div>
    {% endfor %}
   
