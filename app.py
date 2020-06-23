@@ -64,17 +64,16 @@ def mypage():
     return render_template('mypage.html', page=page, user_info=user_info)
 
 # 記事一覧ページ  都道府県指定
-@app.route('/thread/<int:areaid>')
+@app.route('/thread/<int:areaid>', methods=["GET"])
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
-    c.execute("select prefectures, month, date, title from page where flag=0")
+    c.execute("select month, date, title from page where flag=0 and prefectures=?", (areaid,) )
     page = []
     for row in c.fetchall():
-        page.append({"prefectures": row[0], "month": row[1],
-                     "date": row[2], "title": row[3]})
+        page.append({"month": row[0], "date": row[1], "title": row[2]})
     c.close()
     print(area)
     print(page)

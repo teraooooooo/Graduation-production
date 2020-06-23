@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block content %}
 <div class="title"></div>
@@ -5,8 +6,7 @@
 <form action="/postadd/{{pageid}}" method="POST" enctype="multipart/form-data">
     <label for="image">画像ファイル：</label>
     <input type="file" name="image">
-    <form action="/postadd/{{pageid}}" method="POST">
-        <ul>
+            <ul>
             <li>
                 <label for="content"> 本文：</label>
                 <input type="text" name="content" size="140" naxlength="140">
@@ -17,5 +17,5 @@
             </li>
         </ul>
         <input type="submit" value="送信" name="save">
-
+</form>
         {% endblock %}
