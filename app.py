@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import os
 from datetime import datetime
@@ -18,20 +18,23 @@ def all_link():
 
 # 記事詳細ページの記事呼び出し
 
+# ちょっといじりました　0624寺尾
 
-@app.route('/main')
-def main():
+
+@app.route('/main/<int:pageid>')
+def main(pageid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-
+    c.execute(
+        "select image, content, datetime,id from post where flag=0 and pageID=?", (pageid,))
     story = []
     for row in c.fetchall():
         story.append(
             {"image": row[0], "content": row[1], "datetime": row[2], "id": row[3]})
     c.close()
-    print(page)
+    print(pageid)
     print(story)
-    return render_template('main.html', page=page, story=story)
+    return render_template('main.html', pageid=pageid, story=story)
 
 # マイページ
 # @app.route('/mypage')
@@ -53,6 +56,7 @@ def main():
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
+
     c.execute("select name, adress, pass from users where id=1") # usersのid＝1を呼び出し
     user_info = c.fetchone()
     c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=2") #page のUserID=2を呼び出し
@@ -66,6 +70,7 @@ def mypage():
     return render_template('mypage.html', page=page, user_info=user_info)
 
 # 記事一覧ページ  都道府県指定
+
 @app.route('/thread/<int:areaid>', methods=["GET"])
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
@@ -97,13 +102,9 @@ def useraddpost():
     c.execute("insert into users values (null,?,?,?)",
               (name, adress, password))
     conn.commit()
-    # 登録したIDを取得し、次ページに行くときに末尾に渡す
-    c.execute("select id from users where adress = ? and pass = ?",
-              (adress, password))
-    id = c.fetchone()
     c.close()
-    # ユーザー登録完了時には末尾にIDをつけて飛ばす
-    return "ユーザー登録完了"
+    # ページ作成ページへ飛ばす
+    return redirect("/pageadd")
 
 
 @ app.route("/login")  # ログインページの表示
@@ -150,7 +151,7 @@ def deletepost(postid):
     c.execute("update post set flag = 1 where id = ?", (postid,))
     conn.commit()
     conn.close()
-    return redirect("/main")
+    return redirect(url_for('main', pageid=pageid))  # 修正の必要あり
 
 
 @app.route("/pageadd")  # 記事作成の画面を表示
@@ -179,7 +180,7 @@ def pageadd_post():
     id = id[0]
     conn.close()
     print(id)
-    return redirect("/thread")  # 記事一覧へ変更
+    return redirect(url_for('main', pageid=id))  # 記事一覧へ変更
 
 
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
@@ -242,6 +243,7 @@ def get_save_path():
 def nwe():
     return render_template('nwe.html')
 
+
 @app.route('/top')
 def top():
     return render_template('top.html')
@@ -249,6 +251,11 @@ def top():
 @app.route('/second')
 def second():
     return render_template('second.html')
+
+@app.errorhandler(404)
+def notfound(code):
+    return "404.エラーです。TOPに戻りましょう"
+
 
 @app.errorhandler(404)
 def notfound(code):
