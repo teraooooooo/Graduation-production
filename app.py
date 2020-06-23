@@ -11,19 +11,24 @@ app.secret_key = "graduathion"
 def index():
     return render_template('index.html')
 
+
 @app.route('/alllink')
 def all_link():
     return render_template('alllink.html')
 
 # 記事詳細ページの記事呼び出し
+
+
 @app.route('/main')
 def main():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select image, content, datetime from post where flag=0 and pageID=1")
+    c.execute(
+        "select image, content, datetime,id from post where flag=0 and pageID=1")
     story = []
     for row in c.fetchall():
-        story.append({"image": row[0], "content": row[1], "datetime": row[2]})
+        story.append(
+            {"image": row[0], "content": row[1], "datetime": row[2], "id": row[3]})
     c.close()
     print(story)
     return render_template('main.html', story=story)
@@ -228,7 +233,6 @@ def get_save_path():
     return path_dir
 
 
-
 @app.route('/nwe')
 def nwe():
     return render_template('nwe.html')
@@ -247,7 +251,6 @@ def top():
 @app.route('/second')
 def second():
     return render_template('second.html')
-
 
 
 if __name__ == "__main__":
