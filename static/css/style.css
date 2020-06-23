@@ -57,6 +57,21 @@ body {
     font-family: "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", "Meiryo", "HGPｺﾞｼｯｸM", "Osaka", "ＭＳ Ｐゴシック", sans-serif, Century Gothic, Arial;
 }
 
+/* all-link 用 */
+.alllink {
+    margin-top: 100px;
+}
+
+
+/* clone より */
+.header {
+    background-color: brown;
+}
+
+h1 {
+    font-size: 20px;
+}
+
 /* base.htmlの設定 */
 .menu {
     display: flex;
@@ -64,7 +79,7 @@ body {
     align-items: center;
     height: 50px;
     background-color: skyblue;
-    font-size: 24px;  
+    font-size: 24px;
 }
 
 .menu_item {
@@ -83,14 +98,16 @@ body {
 
 /* 記事一覧 thread.htmlの設定  */
 
-.box {    /* 上部メニュー */
+.thread_box {
+    /* 上部メニュー */
     display: flex;
     justify-content: space-between;
     font-size: 24px;
     margin: 10px 10%;
 }
 
-.box1 {    /*   記事タイトル一覧 */
+.box1 {
+    /*   記事タイトル一覧 */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -98,21 +115,24 @@ body {
     border: 1px solid skyblue;
     margin: 10px 10%;
 }
-    
-.item1 {    /* 日付 */
+
+.item1 {
+    /* 日付 */
     width: 10%;
     padding: 10px;
     margin: 10%;
 }
 
-.item2 {    /* 記事タイトル */
+.item2 {
+    /* 記事タイトル */
     padding: 10px;
     text-align: left;
 }
 
 
 /* 記事詳細ページ main.htmlの設定 */
-.main_header {   /* 記事ヘッダ */
+.main_header {
+    /* 記事ヘッダ */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,13 +148,15 @@ body {
     padding: 0 10px;
 }
 
-.btn1 {     /* 投稿するボタン */
+.btn1 {
+    /* 投稿するボタン */
     display: flex;
     justify-content: flex-end;
     margin: 10px 50px;
 }
 
-.box3 {     /* 投稿表示 */
+.box3 {
+    /* 投稿表示 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -161,17 +183,18 @@ body {
     width: 600px;
 
     /* background-color: steelblue; */
- }
+}
 
- .item7 {
-     font-size: 10px;
-     margin: 10px;
-     /* background-color: steelblue; */
-     
- } 
+.item7 {
+    font-size: 10px;
+    margin: 10px;
+    /* background-color: steelblue; */
 
- /* ここから mypage  */
- .mypg_box1 {    /* マイページのユーザー情報 */
+}
+
+/* ここから mypage  */
+.mypg_box1 {
+    /* マイページのユーザー情報 */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -190,7 +213,8 @@ body {
     padding: 10px;
     margin: 10px;
     text-align: left;
-    border: 1px solid skyblue;;
+    border: 1px solid skyblue;
+    ;
 }
 
 .f_item3 {
@@ -198,13 +222,14 @@ body {
     text-align: left;
 }
 
-.mypg_box2 {    /* マイページの記事一覧 */
-     display: flex;
-     justify-content: space-around;
-     align-items: center;
-     height: 100px;
-     border: 1px solid skyblue;
-     margin: 10px 10%;
+.mypg_box2 {
+    /* マイページの記事一覧 */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    border: 1px solid skyblue;
+    margin: 10px 10%;
 }
 
 .my_item {
@@ -214,3 +239,81 @@ body {
 .my_item2 {
     width: 50%;
 }
+
+/* TOP.html の CSS */
+header {
+    height: 60px;
+    background: white;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+}
+
+header ul {
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+}
+
+header li {
+    color: black;
+    width: 25%;
+    line-height: 60px;
+    transition: 0.2s;
+    /*メニューをホバーした時の変化時間*/
+}
+
+header li:hover {
+    /*メニューをホバーしたときに色が変わる*/
+    color: tomato;
+}
+
+section {
+    text-align: center;
+    padding: 100px 0;
+}
+
+section p {
+    font-size: 30px;
+    line-height: 50px;
+    margin: 30px 10px 50px 0;
+    font-weight: 200;
+}
+
+.box {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#sec1 {
+    background: url(./IMG_2658.JPG) no-repeat center center;
+    height: 400px;
+    background-size: cover;
+}
+
+#sec1 h1 {
+    font-size: 100px;
+    color: #fff;
+    padding: 150px 50px 0 0;
+    margin-right: 700px;
+}
+
+#sec1 h2 {
+    font-size: 20px;
+    color: yellow;
+    margin-right: 770px;
+    margin-bottom: 100px;
+}
+
+
+#sec2 a {
+    font-size: 30px;
+}
+
+#sec2 a:hover {
+    color: tomato;
+}
+
+/* TOPのCSSここまで */
+
+/* テスト */
