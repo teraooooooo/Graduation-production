@@ -99,7 +99,12 @@ def thread(areaid):
     c = conn.cursor()
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
+<<<<<<< HEAD
     c.execute("select month, date, title, id from page where flag=0 and prefectures=?", (areaid,) )
+=======
+    c.execute(
+        "select month, date, title from page where flag=0 and prefectures=?", (areaid,))
+>>>>>>> 1e72d94d60c192d64e3d81982fb38da9919996de
     page = []
     for row in c.fetchall():
         page.append({"month": row[0],

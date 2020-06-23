@@ -18,9 +18,7 @@ def all_link():
 
 # 記事詳細ページの記事呼び出し
 
-# ちょっといじりました　0624寺尾
 
-<<<<<<< HEAD
 @app.route('/main/<int:pageid>', methods=["GET"])
 def main(pageid):
     conn = sqlite3.connect('flaskapp.db')
@@ -28,23 +26,14 @@ def main(pageid):
     c.execute("select title, prefectures, month, date, period from page where ID=?", (pageid,))
     page = c.fetchone()
     c.execute("select image, content, datetime pageID from post where flag=0 and pageID=?",(pageid,))
-=======
-
-@app.route('/main/<int:pageid>')
-def main(pageid):
-    conn = sqlite3.connect('flaskapp.db')
-    c = conn.cursor()
-    c.execute(
-        "select image, content, datetime,id from post where flag=0 and pageID=?", (pageid,))
->>>>>>> 1e72d94d60c192d64e3d81982fb38da9919996de
     story = []
     for row in c.fetchall():
         story.append(
             {"image": row[0], "content": row[1], "datetime": row[2], "id": row[3]})
     c.close()
-    print(pageid)
+    print(page)
     print(story)
-    return render_template('main.html', pageid=pageid, story=story)
+    return render_template('main.html', page=page, story=story)
 
 # マイページ
 # @app.route('/mypage')
@@ -67,18 +56,9 @@ def mypage():
     user_id = session ["user_id"]
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-<<<<<<< HEAD
     c.execute("select name, adress, pass from users where id=?", (user_id,))
     user_info = c.fetchone()
     c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id))
-=======
-    # usersのid＝1を呼び出し
-    c.execute("select name, adress, pass from users where id=1")
-    user_info = c.fetchone()
-    # page のUserID=2を呼び出し
-    c.execute(
-        "select prefectures, month, date, title, id from page where flag=0 and UserID=2")
->>>>>>> 1e72d94d60c192d64e3d81982fb38da9919996de
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
@@ -91,8 +71,6 @@ def mypage():
 
 
 # 記事一覧ページ  都道府県指定
-
-
 @app.route('/thread/<int:areaid>', methods=["GET"])
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
@@ -109,7 +87,7 @@ def thread(areaid):
     print(page)
     return render_template('thread.html', page=page, area=area)
 
-
+ 
 @app.route("/useradd")  # ユーザー登録画面の表示
 def useraddget():
     return render_template("useradd.html")
@@ -125,9 +103,13 @@ def useraddpost():
     c.execute("insert into users values (null,?,?,?)",
               (name, adress, password))
     conn.commit()
+    # 登録したIDを取得し、次ページに行くときに末尾に渡す
+    c.execute("select id from users where adress = ? and pass = ?",
+              (adress, password))
+    id = c.fetchone()
     c.close()
-    # ページ作成ページへ飛ばす
-    return redirect("/pageadd")
+    # ユーザー登録完了時には末尾にIDをつけて飛ばす
+    return "ユーザー登録完了"
 
 
 @ app.route("/login")  # ログインページの表示
@@ -171,13 +153,10 @@ def deletepage(pageid):
 def deletepost(postid):
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
-    c.execute("update post set flag = 1 where ID = ?", (postid,))
+    c.execute("update post set flag = 1 where id = ?", (postid,))
     conn.commit()
-    c.execute("select pageID form post where ID = ?", (postid,))
-    pageid = c.fetchone()
-    pageid = pageid[0]
     conn.close()
-    return redirect(url_for('main', postid=pageid))  # 修正の必要あり
+    return redirect("/main")
 
 
 @app.route("/pageadd")  # 記事作成の画面を表示
@@ -192,13 +171,12 @@ def pageadd_post():
     month = request.form.get("month")
     date = request.form.get("date")
     month = request.form.get("month")
-    period = request.form.get("period")
     prefecture = request.form.get("prefecture")
     editpass = request.form.get("editpass")
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("insert into page values(null,?,?,?,?,?,?,0,?)",
-              (user_id, editpass, title, prefecture, month, date, period))
+    c.execute("insert into page values(null,?,?,?,?,?,?,0)",
+              (user_id, editpass, title, prefecture, month, date))
     conn.commit()
     # つくった記事詳細ページへ飛ばすだめに作成した記事IDを取得
     c.execute("SELECT ID from page where userID = ? and title = ?",
@@ -207,7 +185,7 @@ def pageadd_post():
     id = id[0]
     conn.close()
     print(id)
-    return redirect(url_for('main', pageid=id))  # 記事詳細へ変更
+    return redirect("/thread")  # 記事一覧へ変更
 
 
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
@@ -256,7 +234,7 @@ def postadd_post(pageid):
                   (pageid, filename, content, posttime))
         conn.commit()
         conn.close()
-        return redirect(url_for('main', pageid=pageid))
+        return redirect("/page/pageid")
 
 # 画像の保存場所をstaticsのimg
 
@@ -270,16 +248,13 @@ def get_save_path():
 def nwe():
     return render_template("nwe.html")
 
-
 @app.route('/top')
 def top():
     return render_template("top.html")
 
-
 @app.route('/second')
 def second():
     return render_template("second.html")
-
 
 @app.errorhandler(404)
 def notfound(code):
