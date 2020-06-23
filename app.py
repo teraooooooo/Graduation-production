@@ -51,11 +51,12 @@ def main(pageid):
 
 @app.route('/mypage')
 def mypage():
+    user_id = session ["user_id"]
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select name, adress, pass from users where id=1") # usersのid＝1を呼び出し
+    c.execute("select name, adress, pass from users where id=?", (user_id,))
     user_info = c.fetchone()
-    c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=2") #page のUserID=2を呼び出し
+    c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id))
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
@@ -63,6 +64,7 @@ def mypage():
     c.close()
     print(user_info)
     print(page)
+    print(user_id)
     return render_template('mypage.html', page=page, user_info=user_info)
 
 
@@ -73,7 +75,7 @@ def thread(areaid):
     c = conn.cursor()
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
-    c.execute("select month, date, title, id from page where flag=0 and prefectures=? ", (areaid,) )
+    c.execute("select month, date, title, id from page where flag=0 and prefectures=?", (areaid,) )
     page = []
     for row in c.fetchall():
         page.append({"month": row[0],
