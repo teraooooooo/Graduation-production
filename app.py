@@ -239,15 +239,15 @@ def get_save_path():
 
 @app.route('/nwe')
 def nwe():
-    return render_template('nwe.html')
+    return render_template("nwe.html")
 
 @app.route('/top')
 def top():
-    return render_template('top.html')
+    return render_template("top.html")
 
 @app.route('/second')
 def second():
-    return render_template('second.html')
+    return render_template("second.html")
 
 @app.errorhandler(404)
 def notfound(code):
