@@ -56,12 +56,10 @@ def main(pageid):
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    # usersのid＝1を呼び出し
-    c.execute("select name, adress, pass from users where id=1")
+
+    c.execute("select name, adress, pass from users where id=1") # usersのid＝1を呼び出し
     user_info = c.fetchone()
-    # page のUserID=2を呼び出し
-    c.execute(
-        "select prefectures, month, date, title, id from page where flag=0 and UserID=2")
+    c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=2") #page のUserID=2を呼び出し
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
@@ -73,15 +71,13 @@ def mypage():
 
 # 記事一覧ページ  都道府県指定
 
-
 @app.route('/thread/<int:areaid>', methods=["GET"])
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
-    c.execute(
-        "select month, date, title from page where flag=0 and prefectures=?", (areaid,))
+    c.execute("select month, date, title from page where flag=0 and prefectures=?", (areaid,) )
     page = []
     for row in c.fetchall():
         page.append({"month": row[0], "date": row[1], "title": row[2]})
@@ -90,7 +86,7 @@ def thread(areaid):
     print(page)
     return render_template('thread.html', page=page, area=area)
 
-
+ 
 @app.route("/useradd")  # ユーザー登録画面の表示
 def useraddget():
     return render_template("useradd.html")
@@ -248,17 +244,17 @@ def nwe():
     return render_template('nwe.html')
 
 
-g
-
-
 @app.route('/top')
 def top():
     return render_template('top.html')
 
-
 @app.route('/second')
 def second():
     return render_template('second.html')
+
+@app.errorhandler(404)
+def notfound(code):
+    return "404.エラーです。TOPに戻りましょう"
 
 
 @app.errorhandler(404)
