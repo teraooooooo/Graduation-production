@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import os
 from datetime import datetime
@@ -16,13 +16,15 @@ def all_link():
     return render_template('alllink.html')
 
 # 記事詳細ページの記事呼び出し
-@app.route('/main')
-def main():
+
+
+@app.route('/main/<int:pageid>', methods=["GET"])
+def main(pageid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select title, prefectures, month, date, period from page where ID=1")
+    c.execute("select title, prefectures, month, date, period from page where ID=?", (pageid,))
     page = c.fetchone()
-    c.execute("select image, content, datetime pageID from post where flag=0 and pageID=1")
+    c.execute("select image, content, datetime pageID from post where flag=0 and pageID=?",(pageid,))
     story = []
     for row in c.fetchall():
         story.append({"image": row[0], "content": row[1], "datetime": row[2]})
@@ -63,6 +65,7 @@ def mypage():
     print(page)
     return render_template('mypage.html', page=page, user_info=user_info)
 
+
 # 記事一覧ページ  都道府県指定
 @app.route('/thread/<int:areaid>', methods=["GET"])
 def thread(areaid):
@@ -70,10 +73,11 @@ def thread(areaid):
     c = conn.cursor()
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
-    c.execute("select month, date, title from page where flag=0 and prefectures=?", (areaid,) )
+    c.execute("select month, date, title, id from page where flag=0 and prefectures=? ", (areaid,) )
     page = []
     for row in c.fetchall():
-        page.append({"month": row[0], "date": row[1], "title": row[2]})
+        page.append({"month": row[0],
+                     "date": row[1], "title": row[2], "pageid": row[3]})
     c.close()
     print(area)
     print(page)
@@ -239,15 +243,15 @@ def get_save_path():
 
 @app.route('/nwe')
 def nwe():
-    return render_template('nwe.html')
+    return render_template("nwe.html")
 
 @app.route('/top')
 def top():
-    return render_template('top.html')
+    return render_template("top.html")
 
 @app.route('/second')
 def second():
-    return render_template('second.html')
+    return render_template("second.html")
 
 @app.errorhandler(404)
 def notfound(code):

@@ -26,6 +26,7 @@ dd {
     padding: 0px;
 }
 
+
 body {
     background: #fff;
     text-align: center;
@@ -57,14 +58,6 @@ body {
     font-family: "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", "Meiryo", "HGPｺﾞｼｯｸM", "Osaka", "ＭＳ Ｐゴシック", sans-serif, Century Gothic, Arial;
 }
 
-/* clone より */
-.header {
-    background-color: brown;
-}
-
-h1 {
-    font-size: 20px;
-}
 
 /* base.htmlの設定 */
 .base_menu {
@@ -87,6 +80,10 @@ h1 {
     margin: 5px 15px;
 }
 
+footer {
+    margin-top: 20px;
+    background-color: skyblue;
+}
 
 /* 各ページ共通 ページタイトルの設定 */
 .title {
@@ -108,7 +105,7 @@ h1 {
     margin: 10px 10%;
 }
 
-.box1 {
+.thread_box2 {
     /*   記事タイトル一覧 */
     display: flex;
     justify-content: flex-start;
@@ -157,7 +154,7 @@ h1 {
     margin: 10px 50px;
 }
 
-.box3 {
+.mbox3 {
     /* 投稿表示 */
     display: flex;
     justify-content: center;
@@ -287,7 +284,7 @@ section p {
 }
 
 #sec1 {
-    background: url(./IMG_2658.JPG) no-repeat center center;
+    background: url(../img/IMG_2658.JPG) no-repeat center center;
     height: 400px;
     background-size: cover;
 }
@@ -319,8 +316,116 @@ section p {
 
 /* ここからloginページ */
 
+.log0 {
+    background-color: skyblue;
+}
 
 .log1 {
     color: crimson;
 
+}
+
+/* ここから secondページ */
+h1 {
+    color: black;
+    font-size: 30px;
+    margin-left: 600px;
+}
+
+.hover1:hover {
+    opacity: 0.6;
+}
+
+.container {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+
+    flex-direction: row;
+}
+
+.content {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+
+.box1 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box1 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+
+}
+
+.box2 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box2 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
+
+.box3 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box3 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
+
+.box4 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box4 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
+
+.box5 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box5 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
+}
+
+.box6 {
+    width: 300px;
+    height: 200px;
+    margin: 70px;
+    background-color: #B6E2FF;
+    text-align: center;
+}
+
+.box6 a {
+    color: black;
+    margin: 20px 10px 10px 10px;
 }

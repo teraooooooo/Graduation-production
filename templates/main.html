@@ -5,7 +5,7 @@
     <!-- タイトル・エリア・期間はDBからselect -->
     <div class="title">{{page[0]}}</div>
     <div class="main_header">
-      <div class="item3">{{page[1]}}</div>
+      <!-- <div class="item3">{{page[1]}}</div> エリアを文字表示-->
       <div class="item3">{{page[2]}}/{{page[3]}}</div>
       <div class="item3">{{page[4]}}</div>
     </div>
@@ -14,7 +14,7 @@
 
     <!-- 記事はすべてDBからselect-->
     {% for item in story %}
-    <div class="box3">
+    <div class="mbox3">
       <div class="item5"><img src="/static/img/{{item['image']}}" alt="{{item['image']}}"></div>
       <div class="item6">{{item["content"]}}</div>
       <div class="item7">{{item["datetime"]}}</div>
