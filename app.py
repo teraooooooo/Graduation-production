@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect
 import sqlite3
 import os
 from datetime import datetime
@@ -11,33 +11,49 @@ app.secret_key = "graduathion"
 def index():
     return render_template('index.html')
 
+@app.route('/alllink')
+def all_link():
+    return render_template('alllink.html')
+
 # 記事詳細ページの記事呼び出し
-
-
 @app.route('/main')
 def main():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute(
-        "select image, content, datetime,id from post where flag=0 and pageID=1")
+    c.execute("select title, prefectures, month, date, period from page where ID=1")
+    page = c.fetchone()
+    c.execute("select image, content, datetime pageID from post where flag=0 and pageID=1")
     story = []
     for row in c.fetchall():
-        story.append(
-            {"image": row[0], "content": row[1], "datetime": row[2], "id": row[3]})
+        story.append({"image": row[0], "content": row[1], "datetime": row[2]})
     c.close()
+    print(page)
     print(story)
-    return render_template('main.html', story=story)
+    return render_template('main.html', page=page, story=story)
 
 # マイページ
+# @app.route('/mypage')
+    # 同時に作動させる方法がわかるまでコメントアウト
+    # ユーザー名・メールアドレス・パスワード表示
+# def mypage():
+#     conn = sqlite3.connect('flaskapp.db')
+#     c = conn.cursor()
+#     c.execute("select name, mail, user_pass from users where id=1")
+#     user_info = c.fetchone()
+#     c.close()
+#     print(user_info)
+#     return render_template('mypage.html', user_info = user_info)
+
+# マイページのユーザー情報・記事一覧表示
 
 
 @app.route('/mypage')
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select name, adress, pass from users where id=1")
+    c.execute("select name, adress, pass from users where id=1") # usersのid＝1を呼び出し
     user_info = c.fetchone()
-    c.execute("select prefectures, month, date, title,id from page where flag=0")
+    c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=2") #page のUserID=2を呼び出し
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
@@ -47,33 +63,29 @@ def mypage():
     print(page)
     return render_template('mypage.html', page=page, user_info=user_info)
 
-# 記事一覧ページ
-
-
-@app.route('/thread')
-def thread():
+# 記事一覧ページ  都道府県指定
+@app.route('/thread/<int:areaid>', methods=["GET"])
+def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select prefectures, month, date, title from page where flag=0")
+    c.execute("select area from Prefecture where No=?", (areaid,))
+    area = c.fetchone()
+    c.execute("select month, date, title from page where flag=0 and prefectures=?", (areaid,) )
     page = []
     for row in c.fetchall():
-        page.append({"area": row[0], "month": row[1],
-                     "date": row[2], "title": row[3]})
+        page.append({"month": row[0], "date": row[1], "title": row[2]})
     c.close()
+    print(area)
     print(page)
-    return render_template('thread.html', page=page)
+    return render_template('thread.html', page=page, area=area)
 
- # ユーザー登録画面の表示
-
-
-@app.route("/useradd")
+ 
+@app.route("/useradd")  # ユーザー登録画面の表示
 def useraddget():
     return render_template("useradd.html")
 
-# ユーザー情報をDBに追加する
 
-
-@app.route("/useradd", methods=["POST"])
+@app.route("/useradd", methods=["POST"])  # ユーザー情報をDBに追加する
 def useraddpost():
     name = request.form.get("name")
     adress = request.form.get("adress")
@@ -83,19 +95,21 @@ def useraddpost():
     c.execute("insert into users values (null,?,?,?)",
               (name, adress, password))
     conn.commit()
-    return redirect("pageadd")
+    # 登録したIDを取得し、次ページに行くときに末尾に渡す
+    c.execute("select id from users where adress = ? and pass = ?",
+              (adress, password))
+    id = c.fetchone()
+    c.close()
+    # ユーザー登録完了時には末尾にIDをつけて飛ばす
+    return "ユーザー登録完了"
 
-# ログインページの表示
 
-
-@ app.route("/login")
+@ app.route("/login")  # ログインページの表示
 def login_get():
     return render_template("login.html")
 
-# ログインページの機能実装
 
-
-@ app.route("/login", methods=["POST"])
+@ app.route("/login", methods=["POST"])  # ログインページの機能実装
 def login_post():
     adress = request.form.get("adresss")
     password = request.form.get("password")
@@ -163,7 +177,7 @@ def pageadd_post():
     id = id[0]
     conn.close()
     print(id)
-    return redirect(url_for('main', pageid=id))  # 記事詳細へ変更
+    return redirect("/thread")  # 記事一覧へ変更
 
 
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
@@ -220,6 +234,25 @@ def postadd_post(pageid):
 def get_save_path():
     path_dir = "./static/img"
     return path_dir
+
+
+
+@app.route('/nwe')
+def nwe():
+    return render_template('nwe.html')
+
+@app.route('/top')
+def top():
+    return render_template('top.html')
+
+@app.route('/second')
+def second():
+    return render_template('second.html')
+
+@app.errorhandler(404)
+def notfound(code):
+    return "404.エラーです。TOPに戻りましょう"
+
 
 
 if __name__ == "__main__":

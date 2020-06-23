@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+
+    <form action="/register" method="post">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <p>ユーザー名</p><input type="text" name="name"><br>
+        <p>パスワード</p><input type="password" name="password"><br>
+        <br>
+        <input type="submit" name="save" value="登録">
+        <br>
+    </form>
+
+</div>
+
+{% endblock %}
