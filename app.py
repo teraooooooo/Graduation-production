@@ -180,7 +180,7 @@ def pageadd_post():
     id = id[0]
     conn.close()
     print(id)
-    return redirect(url_for('main', pageid=id))  # 記事一覧へ変更
+    return redirect(url_for('main', pageid=id))  # 記事詳細へ変更
 
 
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
