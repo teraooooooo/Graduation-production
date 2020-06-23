@@ -20,15 +20,6 @@ def all_link():
 
 # ちょっといじりました　0624寺尾
 
-<<<<<<< HEAD
-@app.route('/main/<int:pageid>', methods=["GET"])
-def main(pageid):
-    conn = sqlite3.connect('flaskapp.db')
-    c = conn.cursor()
-    c.execute("select title, prefectures, month, date, period from page where ID=?", (pageid,))
-    page = c.fetchone()
-    c.execute("select image, content, datetime pageID from post where flag=0 and pageID=?",(pageid,))
-=======
 
 @app.route('/main/<int:pageid>')
 def main(pageid):
@@ -36,7 +27,6 @@ def main(pageid):
     c = conn.cursor()
     c.execute(
         "select image, content, datetime,id from post where flag=0 and pageID=?", (pageid,))
->>>>>>> 1e72d94d60c192d64e3d81982fb38da9919996de
     story = []
     for row in c.fetchall():
         story.append(
@@ -67,18 +57,9 @@ def mypage():
     user_id = session ["user_id"]
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-<<<<<<< HEAD
     c.execute("select name, adress, pass from users where id=?", (user_id,))
     user_info = c.fetchone()
     c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id))
-=======
-    # usersのid＝1を呼び出し
-    c.execute("select name, adress, pass from users where id=1")
-    user_info = c.fetchone()
-    # page のUserID=2を呼び出し
-    c.execute(
-        "select prefectures, month, date, title, id from page where flag=0 and UserID=2")
->>>>>>> 1e72d94d60c192d64e3d81982fb38da9919996de
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
@@ -99,12 +80,7 @@ def thread(areaid):
     c = conn.cursor()
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
-<<<<<<< HEAD
     c.execute("select month, date, title, id from page where flag=0 and prefectures=?", (areaid,) )
-=======
-    c.execute(
-        "select month, date, title from page where flag=0 and prefectures=?", (areaid,))
->>>>>>> 1e72d94d60c192d64e3d81982fb38da9919996de
     page = []
     for row in c.fetchall():
         page.append({"month": row[0],
