@@ -5,28 +5,129 @@
 <div class="title"></div>
 
 <form action="/pageadd" method="POST">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <ul>
         <li>
             <label for="title">タイトル：</label>
             <input type="text" name="title" size="50" naxlength="50">
         </li>
-        <li>
-            <label for="month">月：</label>
-            <input type="NTEGER" name="month" size="2" naxlength="2">
-        </li>
-        <li>
-            <label for="date">日：</label>
-            <input type="NTEGER" name="date" size="2" naxlength="2">
-        </li>
-        <li>
-            <label for="prefecture">都道府県：</label>
-            <input type="NTEGER" name="prefecture" size="50" naxlength="50">
-        </li>
+        <p>
+            <label for="month">月選択：</label>
+            <select id="month" name="month">
+                <option value="01" selected>１月</option>
+                <option value="02">２月</option>
+                <option value="03">３月</option>
+                <option value="04">４月</option>
+                <option value="05">５月</option>
+                <option value="06">６月</option>
+                <option value="07">７月</option>
+                <option value="08">８月</option>
+                <option value="09">９月</option>
+                <option value="10">１０月</option>
+                <option value="11">１１月</option>
+                <option value="12">１２月</option>
+            </select>
+        </p>
+        <p>
+            <label for="day">日選択：</label>
+            <select id="day" name="day">
+                <option value="01" selected>１日</option>
+                <option value="02">２日</option>
+                <option value="03">３日</option>
+                <option value="04">４日</option>
+                <option value="05">５日</option>
+                <option value="06">６日</option>
+                <option value="07">７日</option>
+                <option value="08">８日</option>
+                <option value="09">９日</option>
+                <option value="10">１０日</option>
+                <option value="11">１１日</option>
+                <option value="12">１２日</option>
+                <option value="13">１３日</option>
+                <option value="14">１４日</option>
+                <option value="15">１５日</option>
+                <option value="16">１６日</option>
+                <option value="17">１７日</option>
+                <option value="18">１８日</option>
+                <option value="19">１９日</option>
+                <option value="20">２０日</option>
+                <option value="21">２１日</option>
+                <option value="22">２２日</option>
+                <option value="23">２３日</option>
+                <option value="24">２４日</option>
+                <option value="25">２５日</option>
+                <option value="26">２６日</option>
+                <option value="27">２７日</option>
+                <option value="28">２８日</option>
+                <option value="29">２９日</option>
+                <option value="30">３０日</option>
+                <option value="31">３１日</option>
+
+            </select>
+        </p>
+        <p>
+            <label for="place">都道府県選択：</label>
+            <select id="place" name="place">
+                <option value="01" selected>北海道</option>
+                <option value="02">青森</option>
+                <option value="03">岩手</option>
+                <option value="04">宮城</option>
+                <option value="05">秋田</option>
+                <option value="06">山形</option>
+                <option value="07">福島</option>
+                <option value="08">茨木</option>
+                <option value="09">栃木</option>
+                <option value="10">群馬</option>
+                <option value="11">埼玉</option>
+                <option value="12">千葉</option>
+                <option value="13">東京</option>
+                <option value="14">神奈川</option>
+                <option value="15">新潟</option>
+                <option value="16">富山</option>
+                <option value="17">石川</option>
+                <option value="18">福井</option>
+                <option value="19">長野</option>
+                <option value="20">岐阜</option>
+                <option value="21">山梨</option>
+                <option value="22">静岡</option>
+                <option value="23">愛知</option>
+                <option value="24">三重</option>
+                <option value="25">滋賀</option>
+                <option value="26">京都</option>
+                <option value="27">大阪</option>
+                <option value="28">奈良</option>
+                <option value="29">和歌山</option>
+                <option value="30">兵庫</option>
+                <option value="31">岡山</option>
+                <option value="32">広島</option>
+                <option value="33">山口</option>
+                <option value="34">鳥取</option>
+                <option value="35">島根</option>
+                <option value="36">香川</option>
+                <option value="37">徳島</option>
+                <option value="38">愛媛</option>
+                <option value="39">高知</option>
+                <option value="40">福岡</option>
+                <option value="41">佐賀</option>
+                <option value="42">長崎</option>
+                <option value="43">大分</option>
+                <option value="44">宮崎</option>
+                <option value="45">熊本</option>
+                <option value="46">鹿児島</option>
+                <option value="47">沖縄</option>
+            </select>
+        </p>
+
         <li>
             <label for="editpass">編集パス：</label>
-            <input type="password" name="editpass" size="50" naxlength="50">
+            <input type="password" name="editpass" size="30" naxlength="50">
         </li>
     </ul>
+    <br>
     <input type="submit" value="送信" name="save">
 </form>
 
