@@ -248,6 +248,10 @@ def top():
 def second():
     return render_template('second.html')
 
+@app.errorhandler(404)
+def notfound(code):
+    return "404.エラーです。TOPに戻りましょう"
+
 
 
 if __name__ == "__main__":
