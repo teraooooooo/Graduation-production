@@ -51,9 +51,9 @@ def main():
 def mypage():
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("select name, adress, pass from users where id=1")
+    c.execute("select name, adress, pass from users where id=1") # usersのid＝1を呼び出し
     user_info = c.fetchone()
-    c.execute("select prefectures, month, date, title, id from page where flag=0")
+    c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=2") #page のUserID=2を呼び出し
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
