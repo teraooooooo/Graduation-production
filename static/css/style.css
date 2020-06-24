@@ -321,9 +321,10 @@ section p {
 /* ここからloginページ */
 
 .log0 {
-    height: 200px;
-    width: 200px;
+    height: 300px;
+    width: 500px;
     background-color: skyblue;
+    margin: 0 auto;
 }
 
 .log1 {
