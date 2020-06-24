@@ -76,8 +76,6 @@ def mypage():
     return render_template('mypage.html', page=page, user_info=user_info)
 
 # 記事一覧ページ  都道府県指定
-
-
 @app.route('/thread/<int:areaid>', methods=["GET"])
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
@@ -93,7 +91,6 @@ def thread(areaid):
     print(area)
     print(page)
     return render_template('thread.html', page=page, area=area)
-
 
 @app.route("/useradd")  # ユーザー登録画面の表示
 def useraddget():
