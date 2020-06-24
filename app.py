@@ -83,12 +83,13 @@ def thread(areaid):
     return render_template('thread.html', page=page, area=area)
 
 
-@app.route("/useradd")  # ユーザー登録画面の表示
-def useraddget():
-    return render_template("useradd.html")
+# アカウント作成ページ
+@app.route('/new')
+def nwe():
+    return render_template('new.html')
 
 
-@app.route("/useradd", methods=["POST"])  # ユーザー情報をDBに追加する
+@app.route("/register", methods=["POST"])  # ユーザー情報をDBに追加する
 def useraddpost():
     name = request.form.get("name")
     adress = request.form.get("adress")
@@ -144,13 +145,14 @@ def deletepage(pageid):
 def deletepost(postid):
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
-    c.execute("update post set flag = 1 where ID = ?", (postid,))
-    conn.commit()
-    c.execute("select pageID form post where ID = ?", (postid,))
+    c.execute("SELECT pageid from post where id = ?", (postid,))
     pageid = c.fetchone()
     pageid = pageid[0]
+    c.execute("update post set flag = 1 where ID = ?", (postid,))
+    conn.commit()
+    print(pageid)
     conn.close()
-    return redirect(url_for('main', postid=pageid))  # 修正の必要あり
+    return redirect(url_for('main', pageid=pageid))
 
 
 @app.route("/pageadd")  # 記事作成の画面を表示
@@ -237,11 +239,6 @@ def postadd_post(pageid):
 def get_save_path():
     path_dir = "./static/img"
     return path_dir
-
-
-@app.route('/nwe')
-def nwe():
-    return render_template('nwe.html')
 
 
 @app.route('/top')
