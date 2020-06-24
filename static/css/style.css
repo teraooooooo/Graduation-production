@@ -294,15 +294,18 @@ section p {
 #sec1 h1 {
     font-size: 100px;
     color: #fff;
-    padding: 150px 50px 0 0;
-    margin-right: 700px;
+    /* padding: 150px 50px 0 0;
+    margin-right: 700px; */
+    text-align: left;
+    margin: 0 auto;
+    padding: 140px 0px 0px 30px;
 }
 
 #sec1 h2 {
     font-size: 20px;
     color: yellow;
-    margin-right: 770px;
-    margin-bottom: 100px;
+    margin-right: 550px;
+    /* margin-bottom: 100px; */
 }
 
 
