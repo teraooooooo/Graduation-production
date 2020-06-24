@@ -110,7 +110,7 @@ h1 {
     margin: 10px 10%;
 }
 
-.box1 {
+.thread_box2 {
     /*   記事タイトル一覧 */
     display: flex;
     justify-content: flex-start;
