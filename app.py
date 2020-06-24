@@ -54,22 +54,26 @@ def main(pageid):
 
 @app.route('/mypage')
 def mypage():
+    # sessionからuser_idを取得
     user_id = session ["user_id"]
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
+    # usersのid＝[user_id]で呼び出し
     c.execute("select name, adress, pass from users where id=?", (user_id,))
     user_info = c.fetchone()
-    c.execute("select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id))
+    # page のUserID=[user_id]で呼び出し
+    c.execute(
+        "select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id,))
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
                      "date": row[2], "title": row[3], "pageid": row[4]})
     c.close()
+    
     print(user_info)
     print(page)
     print(user_id)
     return render_template('mypage.html', page=page, user_info=user_info)
-
 
 # 記事一覧ページ  都道府県指定
 
@@ -80,11 +84,11 @@ def thread(areaid):
     c = conn.cursor()
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
-    c.execute("select month, date, title, id from page where flag=0 and prefectures=?", (areaid,) )
+    c.execute(
+        "select month, date, title from page where flag=0 and prefectures=?", (areaid,))
     page = []
     for row in c.fetchall():
-        page.append({"month": row[0],
-                     "date": row[1], "title": row[2], "pageid": row[3]})
+        page.append({"month": row[0], "date": row[1], "title": row[2]})
     c.close()
     print(area)
     print(page)
@@ -249,17 +253,17 @@ def get_save_path():
 
 @app.route('/nwe')
 def nwe():
-    return render_template("nwe.html")
+    return render_template('nwe.html')
 
 
 @app.route('/top')
 def top():
-    return render_template("top.html")
+    return render_template('top.html')
 
 
 @app.route('/second')
 def second():
-    return render_template("second.html")
+    return render_template('second.html')
 
 
 @app.errorhandler(404)
