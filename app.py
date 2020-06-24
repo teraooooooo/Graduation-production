@@ -36,44 +36,33 @@ def main(pageid):
     print(story)
     return render_template('main.html', pageid=pageid, story=story)
 
-# マイページ
-# @app.route('/mypage')
-    # 同時に作動させる方法がわかるまでコメントアウト
-    # ユーザー名・メールアドレス・パスワード表示
-# def mypage():
-#     conn = sqlite3.connect('flaskapp.db')
-#     c = conn.cursor()
-#     c.execute("select name, mail, user_pass from users where id=1")
-#     user_info = c.fetchone()
-#     c.close()
-#     print(user_info)
-#     return render_template('mypage.html', user_info = user_info)
-
 # マイページのユーザー情報・記事一覧表示
 
 
 @app.route('/mypage')
 def mypage():
+    # sessionからuser_idを取得
+    user_id =session ["user_id"]
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    # usersのid＝1を呼び出し
-    c.execute("select name, adress, pass from users where id=1")
+    # usersのid＝[user_id]で呼び出し
+    c.execute("select name, adress, pass from users where id=?", (user_id,))
     user_info = c.fetchone()
-    # page のUserID=2を呼び出し
+    # page のUserID=[user_id]で呼び出し
     c.execute(
-        "select prefectures, month, date, title, id from page where flag=0 and UserID=2")
+        "select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id,))
     page = []
     for row in c.fetchall():
         page.append({"area": row[0], "month": row[1],
                      "date": row[2], "title": row[3], "pageid": row[4]})
     c.close()
+
     print(user_info)
     print(page)
+    print(user_id)
     return render_template('mypage.html', page=page, user_info=user_info)
 
 # 記事一覧ページ  都道府県指定
-
-
 @app.route('/thread/<int:areaid>', methods=["GET"])
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
