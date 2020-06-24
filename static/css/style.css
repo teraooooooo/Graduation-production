@@ -74,13 +74,13 @@ h1 {
     align-items: center;
     height: 60px;
     background-color: skyblue;
-    font-size: 24px; 
+    font-size: 24px;
 }
 
 .menu {
     display: flex;
     justify-content: flex-end;
-    align-items: center;    
+    align-items: center;
     font-size: 24px;
 }
 
@@ -189,9 +189,9 @@ h1 {
 }
 
 .item7 {
-     font-size: 18px;
-     margin: 10px;
-     /* background-color: steelblue; */ 
+    font-size: 18px;
+    margin: 10px;
+    /* background-color: steelblue; */
 }
 
 /* ここから mypage  */
@@ -321,10 +321,12 @@ section p {
 /* ここからloginページ */
 
 .log0 {
+    height: 200px;
+    width: 200px;
     background-color: skyblue;
 }
 
 .log1 {
-    color: crimson;
+    color: black;
 
 }
