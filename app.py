@@ -80,13 +80,16 @@ def mypage():
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
+    # areaidで都道府県のひらがな表示を呼んでくる
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
+    # areaidで表示記事を絞り込む
     c.execute(
-        "select month, date, title from page where flag=0 and prefectures=?", (areaid,))
+        "select prefectures, month, date, title, id from page where flag=0 and prefectures=?", (areaid,))
     page = []
     for row in c.fetchall():
-        page.append({"month": row[0], "date": row[1], "title": row[2]})
+        page.append({"area": row[0], "month": row[1],
+                     "date": row[2], "title": row[3], "pageid": row[4]})
     c.close()
     print(area)
     print(page)
