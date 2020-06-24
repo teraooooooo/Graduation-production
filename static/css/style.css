@@ -453,7 +453,11 @@ h1 {
 /* ここから/pageadd */
 .trav {
     font-size: 15px;
+    margin: 0 auto;
+}
 
+.traa {
+    margin: 0 auto;
 }
 
 .trav1 {
