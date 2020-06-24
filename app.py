@@ -18,26 +18,36 @@ def all_link():
 
 # 記事詳細ページの記事呼び出し
 
-# ちょっといじりました　0624寺尾
+# ちょっといじりました  0624寺尾
 
 @app.route('/main/<int:pageid>')
 def main(pageid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
+    # pageidでタイトル情報の呼び出し
     c.execute("select title, prefectures, month, date, period from page where ID=?", (pageid,))
     page = c.fetchone()
+    # pageidで記事情報の呼び出し
     c.execute(
         "select image, content, datetime,id from post where flag=0 and pageID=?", (pageid,))
     story = []
     for row in c.fetchall():
         story.append(
             {"image": row[0], "content": row[1], "datetime": row[2], "id": row[3]})
+    # ページ情報の都道府県Noを日本語に変換
+    c.execute("select prefectures from page where ID=?", (pageid,))
+    areas = c.fetchone()
+    
+    c.execute("select area from Prefecture where No=?", (areas))
+    area = c.fetchone()
+
     c.close()
     
     print(pageid)
     print(page)
     print(story)
-    return render_template('main.html', pageid=pageid, page=page, story=story)
+    print(area)
+    return render_template('main.html', pageid=pageid, page=page, story=story, area=area)
 
 # マイページのユーザー情報・記事一覧表示
 
