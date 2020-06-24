@@ -331,3 +331,11 @@ section p {
     color: black;
 
 }
+
+/* ここからnewページ(アカウント登録) */
+.new1 {
+    height: 300px;
+    width: 500px;
+    background-color: skyblue;
+    margin: 0 auto;
+}
