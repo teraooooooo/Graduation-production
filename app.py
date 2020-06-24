@@ -240,6 +240,46 @@ def get_save_path():
     path_dir = "./static/img"
     return path_dir
 
+# 編集ページの表示
+
+
+@app.route("/edit/<int:pageid>")
+def edit(pageid):
+    conn = sqlite3.connect("flaskapp.db")
+    c = conn.cursor()
+    c.execute(
+        "select title,prefectures,month,date,period from page where id = ?", (pageid,))
+    page = c.fetchone()  # タプル型で取得している
+    c.close()
+
+    # タスクが取得できない場合の例外処理
+    return render_template("pageedit.html", pageid=pageid, page=page)
+
+
+@app.route("/edit", methods=["POST"])
+def update_task():
+    user_id = session["user_id"]
+    title = request.form.get("title")
+    month = request.form.get("month")
+    date = request.form.get("date")
+    month = request.form.get("month")
+    period = request.form.get("period")
+    prefecture = request.form.get("prefecture")
+    editpass = request.form.get("editpass")
+    conn = sqlite3.connect('flaskapp.db')
+    c = conn.cursor()
+    c.execute("update page set title=?,prefectures=?,month=?,date=?,period=?.editpass=? where = id",
+              (title, prefecture, month, date, period, editpass, user_id))
+    conn.commit()
+    # つくった記事詳細ページへ飛ばすだめに作成した記事IDを取得
+    c.execute("SELECT ID from page where userID = ? and title = ?",
+              (user_id, title))
+    id = c.fetchone()
+    id = id[0]
+    conn.close()
+    print(id)
+    return redirect(url_for('main', pageid=id))
+
 
 @app.route('/top')
 def top():
