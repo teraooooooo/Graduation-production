@@ -96,7 +96,7 @@ def useraddget():
     return render_template("useradd.html")
 
 
-@app.route("/useradd", methods=["POST"])  # ユーザー情報をDBに追加する
+@app.route("/register", methods=["POST"])  # ユーザー情報をDBに追加する
 def useraddpost():
     name = request.form.get("name")
     adress = request.form.get("adress")
@@ -247,9 +247,9 @@ def get_save_path():
     return path_dir
 
 
-@app.route('/nwe')
+@app.route('/new')
 def nwe():
-    return render_template('nwe.html')
+    return render_template('new.html')
 
 
 @app.route('/top')
