@@ -320,7 +320,7 @@ section p {
 .log0 {
     height: 300px;
     width: 500px;
-    background-color: skyblue;
+    background-color: white;
     margin: 0 auto;
 }
 
@@ -329,7 +329,6 @@ section p {
 
 }
 
-<<<<<<< HEAD
 * ここから secondページ */ h1 {
     color: black;
     font-size: 30px;
@@ -432,12 +431,10 @@ section p {
 .box6 a {
     color: black;
     margin: 20px 10px 10px 10px;
-=======
 /* ここからnewページ(アカウント登録) */
 .new1 {
     height: 300px;
     width: 500px;
-    background-color: skyblue;
+    background-color: white;
     margin: 0 auto;
->>>>>>> 16561a44adde1ea3856f41163989b4330dc1f2a6
 }
