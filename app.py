@@ -20,11 +20,12 @@ def all_link():
 
 # ちょっといじりました　0624寺尾
 
-
 @app.route('/main/<int:pageid>')
 def main(pageid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
+    c.execute("select title, prefectures, month, date, period from page where ID=?", (pageid,))
+    page = c.fetchone()
     c.execute(
         "select image, content, datetime,id from post where flag=0 and pageID=?", (pageid,))
     story = []
@@ -32,9 +33,11 @@ def main(pageid):
         story.append(
             {"image": row[0], "content": row[1], "datetime": row[2], "id": row[3]})
     c.close()
+    
     print(pageid)
+    print(page)
     print(story)
-    return render_template('main.html', pageid=pageid, story=story)
+    return render_template('main.html', pageid=pageid, page=page, story=story)
 
 # マイページのユーザー情報・記事一覧表示
 
