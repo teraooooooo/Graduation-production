@@ -320,12 +320,14 @@ section p {
 
 .log0 {
     height: 300px;
-    width: 500px;
-    background-color: white;
+    width: 700px;
+    background-color: #ccffff;
     margin: 0 auto;
+    border: solid black;
 }
 
 .log1 {
+    margin-top: 30px;
     color: black;
 
 }
@@ -438,7 +440,30 @@ h1 {
 /* ここからnewページ(アカウント登録) */
 .new1 {
     height: 300px;
-    width: 500px;
-    background-color: white;
+    width: 700px;
+    background-color: #ccffff;
     margin: 0 auto;
+    border: solid black;
+}
+
+.new2 {
+    margin-top: 55px;
+}
+
+/* ここから/pageadd */
+.trav {
+    font-size: 15px;
+
+}
+
+.trav1 {
+    height: 300px;
+    width: 700px;
+    background-color: #ccffff;
+    margin: 0 auto;
+    border: solid black;
+}
+
+.trav2 {
+    margin: 3px;
 }

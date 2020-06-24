@@ -8,15 +8,14 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <ul>
-        <li>
-            <label for="title">タイトル：</label>
-            <input type="text" name="title" size="50" naxlength="50">
-        </li>
-        <p>出発日選択</p>
-        <p>
+    <div class="trav">投稿に必要な項目を記入してね。<br>
+        送信すると投稿出来るよ！</div>
+    <div class="trav1">
+        <br>
+        <div class="trav2">タイトル</div>
+        <input type="text" name="title" size="50" naxlength="50">
+        <div class="trav2">出発日選択</div>
+        <div class="trav2">
             <label for="month">月：</label>
             <select id="month" name="month">
                 <option value="01" selected>１月</option>
@@ -32,8 +31,8 @@
                 <option value="11">１１月</option>
                 <option value="12">１２月</option>
             </select>
-        </p>
-        <p>
+        </div>
+        <div class="trav2">
             <label for="day">日：</label>
             <select id="day" name="day">
                 <option value="01" selected>１日</option>
@@ -69,8 +68,8 @@
                 <option value="31">３１日</option>
 
             </select>
-        </p>
-        <p>
+        </div>
+        <div class="trav2">
             <label for="period">期間：</label>
             <select id="period" name="period">
                 <option value="01" selected>日帰り</option>
@@ -82,8 +81,8 @@
                 <option value="07">6日7日</option>
                 <option value="08">1週間以上</option>
             </select>
-        </p>
-        <p>
+        </div>
+        <div class="trav2">
             <label for="place">都道府県選択：</label>
             <select id="place" name="place">
                 <option value="01" selected>北海道</option>
@@ -134,15 +133,15 @@
                 <option value="46">鹿児島</option>
                 <option value="47">沖縄</option>
             </select>
-        </p>
+        </div>
 
-        <li>
+        <div class="trav2">
             <label for="editpass">編集パス：</label>
             <input type="password" name="editpass" size="30" naxlength="50">
-        </li>
-    </ul>
-    <br>
-    <input type="submit" value="送信" name="save">
+        </div>
+        <br>
+        <input type="submit" value="送信" name="save">
+    </div>
 </form>
 
 {% endblock %}
