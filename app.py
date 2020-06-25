@@ -56,26 +56,29 @@ def main(pageid):
 
 @app.route('/mypage')
 def mypage():
-    # sessionからuser_idを取得
-    user_id = session["user_id"]
-    conn = sqlite3.connect('flaskapp.db')
-    c = conn.cursor()
+    if "user_id" in session:
+        # sessionからuser_idを取得
+        user_id = session["user_id"]
+        conn = sqlite3.connect('flaskapp.db')
+        c = conn.cursor()
     # usersのid＝[user_id]で呼び出し
-    c.execute("select name, adress, pass from users where id=?", (user_id,))
-    user_info = c.fetchone()
+        c.execute("select name, adress, pass from users where id=?", (user_id,))
+        user_info = c.fetchone()
     # page のUserID=[user_id]で呼び出し
-    c.execute(
-        "select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id,))
-    page = []
-    for row in c.fetchall():
-        page.append({"area": row[0], "month": row[1],
-                     "date": row[2], "title": row[3], "pageid": row[4]})
-    c.close()
+        c.execute(
+            "select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id,))
+        page = []
+        for row in c.fetchall():
+            page.append({"area": row[0], "month": row[1],
+                         "date": row[2], "title": row[3], "pageid": row[4]})
+        c.close()
 
-    print(user_info)
-    print(page)
-    print(user_id)
-    return render_template('mypage.html', page=page, user_info=user_info)
+        print(user_info)
+        print(page)
+        print(user_id)
+        return render_template('mypage.html', page=page, user_info=user_info)
+    else:
+        return redirect("/login")
 
 # 記事一覧ページ  都道府県指定
 
@@ -102,7 +105,7 @@ def thread(areaid):
 
 # アカウント作成ページ
 @app.route('/new')
-def nwe():
+def new():
     return render_template('new.html')
 
 
@@ -157,8 +160,9 @@ def login_post():
     error_message = " "
     # ログインできなかった場合どこに飛ばしましょうか？
     if user_id is None:
-        error_message = 'ユーザー名またはパスワードが正しく有りません'
-        return render_template('login.html', error_message=error_message)
+        error_message = 'ユーザー名またはパスワードが正しくありません'
+        flash(error_message, category='alert alert-danger')
+        return redirect('/login')
     # ログインできた場合は新規作成ページに飛ばす
     else:
         session.clear()
@@ -192,7 +196,10 @@ def deletepost(postid):
 
 @app.route("/pageadd")  # 記事作成の画面を表示
 def pageadd_get():
-    return render_template("pageadd.html")
+    if "user_id" in session:
+        return render_template("pageadd.html")
+    else:
+        return redirect("/login")
 
 
 @app.route("/pageadd", methods=["POST"])  # 記事のデータを登録
@@ -222,7 +229,10 @@ def pageadd_post():
 
 @app.route("/postadd/<int:pageid>")  # 記事作成の画面を表示
 def postadd_get(pageid):
-    return render_template("postadd.html", pageid=pageid)
+    if "user_id" in session:
+        return render_template("postadd.html", pageid=pageid)
+    else:
+        return redirect("/login")
 
 
 @app.route('/postadd/<int:pageid>', methods=["POST"])
@@ -280,15 +290,18 @@ def get_save_path():
 
 @app.route("/edit/<int:pageid>")
 def edit(pageid):
-    conn = sqlite3.connect("flaskapp.db")
-    c = conn.cursor()
-    c.execute(
-        "select title,prefectures,month,date,period from page where id = ?", (pageid,))
-    page = c.fetchone()  # タプル型で取得している
-    c.close()
+    if "user_id" in session:
+        conn = sqlite3.connect("flaskapp.db")
+        c = conn.cursor()
+        c.execute(
+            "select title,prefectures,month,date,period from page where id = ?", (pageid,))
+        page = c.fetchone()  # タプル型で取得している
+        c.close()
 
     # タスクが取得できない場合の例外処理
-    return render_template("pageedit.html", pageid=pageid, page=page)
+        return render_template("pageedit.html", pageid=pageid, page=page)
+    else:
+        return redirect("/login")
 
 
 @app.route("/edit", methods=["POST"])
