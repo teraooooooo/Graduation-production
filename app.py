@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 import sqlite3
 import os
 from datetime import datetime
@@ -20,12 +20,14 @@ def all_link():
 
 # ちょっといじりました  0624寺尾
 
+
 @app.route('/main/<int:pageid>')
 def main(pageid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
     # pageidでタイトル情報の呼び出し
-    c.execute("select title, prefectures, month, date, period from page where ID=?", (pageid,))
+    c.execute(
+        "select title, prefectures, month, date, period from page where ID=?", (pageid,))
     page = c.fetchone()
     # pageidで記事情報の呼び出し
     c.execute(
@@ -37,12 +39,12 @@ def main(pageid):
     # ページ情報の都道府県Noを日本語に変換
     c.execute("select prefectures from page where ID=?", (pageid,))
     areas = c.fetchone()
-    
+
     c.execute("select area from Prefecture where No=?", (areas))
     area = c.fetchone()
 
     c.close()
-    
+
     print(pageid)
     print(page)
     print(story)
@@ -55,7 +57,7 @@ def main(pageid):
 @app.route('/mypage')
 def mypage():
     # sessionからuser_idを取得
-    user_id =session ["user_id"]
+    user_id = session["user_id"]
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
     # usersのid＝[user_id]で呼び出し
@@ -76,6 +78,8 @@ def mypage():
     return render_template('mypage.html', page=page, user_info=user_info)
 
 # 記事一覧ページ  都道府県指定
+
+
 @app.route('/thread/<int:areaid>', methods=["GET"])
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
@@ -109,12 +113,28 @@ def useraddpost():
     password = request.form.get("password")
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("insert into users values (null,?,?,?)",
-              (name, adress, password))
-    conn.commit()
-    c.close()
-    # ページ作成ページへ飛ばす
-    return redirect("/pageadd")
+
+    error_message = None
+    if not name:
+        error_message = 'ユーザー名の入力は必須です'
+    elif not adress:
+        error_message = 'アドレスの入力は必須です'
+    elif not password:
+        error_message = 'パスワードの入力は必須です'
+    elif c.execute('SELECT id FROM users WHERE name = ?', (adress,)).fetchone() is not None:
+        error_message = 'そのアドレスはすでに使用されているため別のアドレスご入力ください'
+
+    if error_message is not None:
+        # エラーがあれば、それを画面に表示させる
+        flash(error_message, category='alert alert-danger')
+        return redirect('/new')
+    else:
+        c.execute("insert into users values (null,?,?,?)",
+                  (name, adress, password))
+        conn.commit()
+        c.close()
+        # ページ作成ページへ飛ばす
+        return redirect("/pageadd")
 
 
 @ app.route("/login")  # ログインページの表示
@@ -124,23 +144,25 @@ def login_get():
 
 @ app.route("/login", methods=["POST"])  # ログインページの機能実装
 def login_post():
-    adress = request.form.get("adresss")
+    adress = request.form.get("adress")
     password = request.form.get("password")
     conn = sqlite3.connect("flaskapp.db")
     c = conn.cursor()
 
-    c.execute("select id from users where name = ? and pass = ?",
+    c.execute("select id from users where adress = ? and pass = ?",
               (adress, password))
     user_id = c.fetchone()
     c.close()
 
+    error_message = " "
     # ログインできなかった場合どこに飛ばしましょうか？
     if user_id is None:
-        return "ユーザー情報がないよ"
-     # ログインできた場合は末尾にIDをつけて新規作成ページに飛ばす
+        error_message = 'ユーザー名またはパスワードが正しく有りません'
+        return render_template('login.html', error_message=error_message)
+    # ログインできた場合は新規作成ページに飛ばす
     else:
+        session.clear()
         session["user_id"] = user_id[0]
-    # 記事作成ページへ飛ばす
         return redirect("/pageadd")
 
 
@@ -302,6 +324,12 @@ def top():
 @app.route('/second')
 def second():
     return render_template('second.html')
+
+
+@app.route("/logout")
+def logout():
+    session.pop("user_id", None)
+    return redirect("/login")
 
 
 @app.errorhandler(404)

@@ -18,6 +18,9 @@
                 <div class="new4">パスワード</div><input type="password" name="password" size="50" naxlength="100"><br>
                 <br>
                 <input type="submit" value="登録" name="save">
+                {% for category, message in get_flashed_messages(with_categories=true) %}
+                <div class="{{ category }}">{{ message }}</div>
+                {% endfor %}
                 <br>
             </div>
         </section>
