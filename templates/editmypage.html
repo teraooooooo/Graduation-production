@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="title">マイページ</div>
+<form action="" method="POST">
+    <div class="mypg_box1">
+        <div class="f_item1">ユーザー名</div>
+        <input type="text" name="title" size="50" naxlength="50" value="{{user_info[0]}}">
+        <div class="f_item3"><button>編集</button></div>
+    </div>
+    <div class="mypg_box1">
+        <div class="f_item1">メールアドレス</div>
+        <input type="text" name="title" size="50" naxlength="50" value="{{user_info[1]}}">
+        <div class="f_item3"><button>編集</button></div>
+    </div>
+    <div class="mypg_box1">
+        <div class="f_item1">パスワード</div>
+        <input type="text" name="title" size="50" naxlength="50" value="{{user_info[2]}}">
+        <div class="f_item3"><button>編集</button></div>
+</form>
+
+</div>
+
+{% endblock %}
