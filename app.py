@@ -218,7 +218,7 @@ def pageadd_post():
               (user_id, editpass, title, prefecture, month, date, period))
     conn.commit()
     # つくった記事詳細ページへ飛ばすだめに作成した記事IDを取得
-    c.execute("SELECT ID from page where userID = ? and title = ?",
+    c.execute("SELECT ID from page where userID = ? and title = ? and",
               (user_id, title))
     id = c.fetchone()
     id = id[0]
