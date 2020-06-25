@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="title"></div>
+
+<form action="/postadd/{{pageid}}" method="POST" enctype="multipart/form-data">
+    <br>
+    <br>
+    <div class="pos0">
+        <br>
+        <label for="image">画像ファイル：</label>
+        <input type="file" name="image">
+        <br>
+        <form action="/postadd/{{pageid}}" method="POST">
+
+            <p>
+                <br>
+                <label for="content"> 本文：</label>
+                <br>
+                <textarea name="content" cols="50" rows="8" maxlength="140">
+                </textarea>
+                <!-- <input type="text" name="content" size="140" naxlength="140"> -->
+            </p>
+            <p>
+                <label for="editpass"> パス：</label>
+                <input type="password" name="editpass" size="10" naxlength="100">
+
+            </p>
+
+            <br>
+            <input type="submit" value="送信" name="save">
+    </div>
+</form>
+<br>
+{% endblock %}
