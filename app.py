@@ -102,8 +102,10 @@ def useraddpost():
     name = request.form.get("name")
     adress = request.form.get("adress")
     password = request.form.get("password")
+
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
+
     c.execute("insert into users values (null,?,?,?)",
               (name, adress, password))
     conn.commit()
