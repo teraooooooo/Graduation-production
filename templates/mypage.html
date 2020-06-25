@@ -24,10 +24,11 @@
     <div class="my_item1">{{item["month"]}}/{{item["date"]}}</div>
     <div class="my_item2"><a href="/main/{{item['pageid']}}"> {{item["title"]}}</a></div>
     <div class="my_item1">編集パス：{{item["editPASS"]}}</div>
-    <div class="my_item3"><a href="/edit/{{item['pageid']}}">編集する</a></div>
+    <div class="my_item3"><a href="/edit/{{item['pageid']}}"><button>編集</button></a></div>
     <!-- 寺尾追記 -->
-    <div class="my_item4"><a href="/deletepage/{{item['pageid']}}">削除する</a></div>
+    <div class="my_item4"><a href="/deletepage/{{item['pageid']}}"><button>削除</button></a></div>
 </div>
 {% endfor %}
+<a href="/logout" class="mypg_box3">ログアウトはこちら</a>
 
 {% endblock %}

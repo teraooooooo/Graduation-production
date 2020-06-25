@@ -17,12 +17,12 @@
                 <div class="log1">アドレス</div><input type="text" name="adress">
                 <div class="log2">パスワード</div><input type="password" name="password"><br><br>
                 <input type="submit" value="ログイン">
-                {% for category, message in get_flashed_messages(with_categories=true) %}
-                <div class="{{ category }}">{{ message }}</div>
-                {% endfor %}
                 <br>
-
                 <a href="/new">登録がまだの方はこちら</a>
+                <br><br>
+                {% for category, message in get_flashed_messages(with_categories=true) %}
+                <div class="{{ category }}" id="alert">{{ message }}</div>
+                {% endfor %}
             </div>
         </section>
     </form>
