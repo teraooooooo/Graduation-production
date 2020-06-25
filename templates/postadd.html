@@ -8,11 +8,9 @@
     <br>
     <br>
     <div class="pos0">
-        <br>
         <p>画像は必須です。</p>
         <label for="image">画像ファイル：</label>
         <input type="file" name="image">
-        <br>
         <form action="/postadd/{{pageid}}" method="POST">
 
             <p>
@@ -28,9 +26,11 @@
                 <input type="password" name="editpass" size="10" naxlength="100">
 
             </p>
-
             <br>
-            <input type="submit" value="送信" name="save">
+            <input type="submit" value="投稿" name="save">
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+            <div class="{{ category }}" id="alert">{{ message }}</div>
+            {% endfor %}
     </div>
 </form>
 <br>

@@ -232,6 +232,16 @@ footer {
     margin: 10px 10%;
 }
 
+.mypg_box3 {
+    /* マイページの記事一覧 */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 26px;
+    border: 1px solid skyblue;
+    margin: 10px 42%;
+}
+
 .my_item {
     min-width: 10%;
 }
@@ -380,6 +390,10 @@ section p {
     margin-top: 30px;
     color: black;
 
+}
+
+.alert {
+    color: red
 }
 
 /*  ここから secondページ */

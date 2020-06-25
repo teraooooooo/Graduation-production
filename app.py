@@ -70,7 +70,7 @@ def mypage():
         page = []
         for row in c.fetchall():
             page.append({"area": row[0], "month": row[1],
-                         "date": row[2], "title": row[3], "pageid": row[4], "editPASS": row[5]}) #ページ編集パスも呼んでくる
+                         "date": row[2], "title": row[3], "pageid": row[4], "editPASS": row[5]})  # ページ編集パスも呼んでくる
         c.close()
 
         print(user_info)
@@ -124,7 +124,7 @@ def useraddpost():
         error_message = 'アドレスの入力は必須です'
     elif not password:
         error_message = 'パスワードの入力は必須です'
-    elif c.execute('SELECT id FROM users WHERE name = ?', (adress,)).fetchone() is not None:
+    elif c.execute('SELECT adress FROM users WHERE name = ?', (name,)).fetchone() is not None:
         error_message = 'そのアドレスはすでに使用されているため別のアドレスご入力ください'
 
     if error_message is not None:
@@ -142,6 +142,8 @@ def useraddpost():
 
 @ app.route("/login")  # ログインページの表示
 def login_get():
+    error_message = " "
+    flash(error_message, category='alert alert-danger')
     return render_template("login.html")
 
 
@@ -157,7 +159,7 @@ def login_post():
     user_id = c.fetchone()
     c.close()
 
-    error_message = " "
+    error_message = None
     # ログインできなかった場合どこに飛ばしましょうか？
     if user_id is None:
         error_message = 'ユーザー名またはパスワードが正しくありません'
@@ -240,7 +242,9 @@ def postadd_post(pageid):
     upload = request.files['image']
     # uploadで取得したファイル名をlower()で全部小文字にして、ファイルの最後尾の拡張子が'.png', '.jpg', '.jpeg'ではない場合、returnさせる。
     if not upload.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-        return 'png,jpg,jpeg形式のファイルを選択してください'
+        error_message = '画像ファイルがアップロードされておりません'
+        flash(error_message, category='alert alert-danger')
+        return redirect(url_for('postadd_get', pageid=pageid))
 
     # 下の def get_save_path()関数を使用して "./static/img/" パスを戻り値として取得する。
     save_path = get_save_path()
@@ -268,7 +272,9 @@ def postadd_post(pageid):
 
     # 入力したパスと登録されたパスがk異なる場合
     if editpass != page_editpass:
-        return "passが間違っております"
+        error_message = '編集パスが正しくありません'
+        flash(error_message, category='alert alert-danger')
+        return redirect(url_for('postadd_get', pageid=pageid))
     else:
         conn = sqlite3.connect('flaskapp.db')
         c = conn.cursor()
@@ -316,7 +322,7 @@ def update_task():
     editpass = request.form.get("editpass")
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    c.execute("update page set title=?,prefectures=?,month=?,date=?,period=?.editpass=? where = id",
+    c.execute("update page set title=?,prefectures=?,month=?,date=?,period=?.editpass=? where id=?",
               (title, prefecture, month, date, period, editpass, user_id))
     conn.commit()
     # つくった記事詳細ページへ飛ばすだめに作成した記事IDを取得
@@ -340,10 +346,26 @@ def editmypage():
         c.execute("select name, adress, pass from users where id=?", (user_id,))
         user_info = c.fetchone()
         c.close()
-        return render_template('mypage.html', user_info=user_info)
+        return render_template('editmypage.html', user_info=user_info)
 
     else:
         return redirect("/login")
+
+
+@app.route("/editmypage", methods=["POST"])
+def editmypage_post():
+    if "user_id" in session:
+        user_id = session["user_id"]
+        name = request.form.get("name")
+        adress = request.form.get("adress")
+        password = request.form.get("password")
+        conn = sqlite3.connect('flaskapp.db')
+        c = conn.cursor()
+        c.execute("update users set name=?,adress=?,pass=? where id = ?",
+                  (name, adress, password, user_id))
+        conn.commit()
+    else:
+        return redirect("/mypage")
 
 
 @app.route('/top')
@@ -364,7 +386,7 @@ def logout():
 
 @app.errorhandler(404)
 def notfound(code):
-    return "404.エラーです。TOPに戻りましょう"
+    return render_template('404.html')
 
 
 if __name__ == "__main__":
