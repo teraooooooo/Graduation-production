@@ -481,3 +481,12 @@ h1 {
 .trav2 {
     margin: 2px;
 }
+
+/* ここからpostadd */
+.pos0 {
+    margin: 0 auto;
+    text-align: center;
+    background-color: #ccffff;
+    height: 330px;
+    width: 700px;
+}
