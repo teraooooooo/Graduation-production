@@ -170,6 +170,7 @@
 
     .item3 {
         /* エリア・期間 */
+        font-size: 15px;
         padding: 0 10px;
     }
 
@@ -344,7 +345,7 @@
 
     .log0 {
         height: 300px;
-        width: 700px;
+        width: 230px;
         background-color: #ccffff;
         margin: 0 auto;
         border: solid black;
@@ -476,23 +477,40 @@
 
     /* ここから/pageadd */
     .trav {
-        font-size: 15px;
+        /* font-size: 15px; */
         margin: 0 auto;
     }
+
+    .trav h2 {
+        font-size: 13px;
+        text-align: center;
+        font-family: "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", "Meiryo", "HGPｺﾞｼｯｸM", "Osaka", "ＭＳ Ｐゴシック", sans-serif, Century Gothic, Arial;
+    }
+
 
     .traa {
         margin: 0 auto;
+        text-align: center;
     }
 
     .trav1 {
-        height: 300px;
-        width: 700px;
+        height: 400px;
+        width: 320px;
         background-color: #ccffff;
         margin: 0 auto;
         border: solid black;
     }
 
     .trav2 {
-        margin: 3px;
+        margin: 2px;
+    }
+
+    /* ここからpostadd */
+    .pos0 {
+        margin: 0 auto;
+        text-align: center;
+        background-color: #ccffff;
+        height: 380px;
+        width: 340px;
     }
 }
