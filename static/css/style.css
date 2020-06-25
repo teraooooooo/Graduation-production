@@ -333,7 +333,7 @@ section p {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-.btn-square-little-rich:active {
+.ind1 {
     /*押したとき*/
     border: solid 1px #03A9F4;
     box-shadow: none;
@@ -356,7 +356,7 @@ section p {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-.btn-square-little-rich:active {
+.ind2 {
     /*押したとき*/
     border: solid 1px #03A9F4;
     box-shadow: none;
