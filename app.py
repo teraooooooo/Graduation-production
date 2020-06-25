@@ -66,11 +66,11 @@ def mypage():
         user_info = c.fetchone()
     # page のUserID=[user_id]で呼び出し
         c.execute(
-            "select prefectures, month, date, title, id from page where flag=0 and UserID=?", (user_id,))
+            "select prefectures, month, date, title, id, editPASS from page where flag=0 and UserID=?", (user_id,))
         page = []
         for row in c.fetchall():
             page.append({"area": row[0], "month": row[1],
-                         "date": row[2], "title": row[3], "pageid": row[4]})
+                         "date": row[2], "title": row[3], "pageid": row[4], "editPASS": row[5]}) #ページ編集パスも呼んでくる
         c.close()
 
         print(user_info)
