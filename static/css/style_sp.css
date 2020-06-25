@@ -84,7 +84,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .menu_item {
@@ -294,7 +294,7 @@
 
     section {
         text-align: center;
-        padding: 100px 0;
+        padding: 30px 0;
     }
 
     section p {
@@ -316,16 +316,16 @@
     }
 
     #sec1 h1 {
-        font-size: 70px;
+        font-size: 60px;
         color: #fff;
-        padding: 100px 50px 0 0;
+        padding: 150px 0px 0px 0px;
         margin-right: 30px;
     }
 
     #sec1 h2 {
         font-size: 13px;
         color: yellow;
-        margin-right: 170px;
+        margin-right: 5px;
         margin-bottom: 80px;
     }
 
