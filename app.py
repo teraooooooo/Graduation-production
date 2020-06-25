@@ -329,6 +329,23 @@ def update_task():
     return redirect(url_for('main', pageid=id))
 
 
+@app.route("/editmypage")
+def editmypage():
+    if "user_id" in session:
+        # sessionからuser_idを取得
+        user_id = session["user_id"]
+        conn = sqlite3.connect('flaskapp.db')
+        c = conn.cursor()
+    # usersのid＝[user_id]で呼び出し
+        c.execute("select name, adress, pass from users where id=?", (user_id,))
+        user_info = c.fetchone()
+        c.close()
+        return render_template('mypage.html', user_info=user_info)
+
+    else:
+        return redirect("/login")
+
+
 @app.route('/top')
 def top():
     return render_template('top.html')
