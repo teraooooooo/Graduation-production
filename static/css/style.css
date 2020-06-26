@@ -75,6 +75,10 @@ body {
     font-size: 24px;
 }
 
+.menu_item a:hover {
+    color: yellow;
+}
+
 .menu_item {
     margin: 5px 15px;
 }
