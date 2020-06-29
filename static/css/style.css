@@ -72,7 +72,6 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 24px;
 }
 
 .menu_item a:hover {
@@ -166,7 +165,8 @@ footer {
     align-items: center;
     flex-direction: column;
     background-color: skyblue;
-    margin: 10px 200px;
+    min-width: 440px;
+    margin: 10px 20%;
 }
 
 .item5 {

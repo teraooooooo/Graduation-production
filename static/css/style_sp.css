@@ -78,18 +78,27 @@
         align-items: center;
         height: 60px;
         background-color: skyblue;
-        font-size: 24px;
+        font-size: 10px;
     }
 
     .menu {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        font-size: 10px;
+    }
+
+    .menu_item a:hover {
+        color: yellow;
     }
 
     .menu_item {
         margin: 5px 15px;
+    }
+
+    footer {
+        margin-top: 20px;
+        background-color: skyblue;
+        text-align: center;
     }
 
     /* ハンバーガーメニュー */
@@ -119,7 +128,7 @@
         align-items: flex-end;
         font-size: 28px;
         height: 150px;
-        margin-bottom: :20px;
+        margin-bottom: 20px;
         /* background-color: blue; */
     }
 
@@ -191,21 +200,22 @@
         align-items: center;
         flex-direction: column;
         background-color: skyblue;
+        min-width: 375px;
         margin: 2px 3px;
     }
 
 
     .item5 {
-        max-width: 400px;
-        max-height: 400px;
-        margin: 20px;
+        max-width: 300px;
+        max-height: 300px;
+        margin: 5px;
         padding: 15px;
         /* background-color: steelblue; */
     }
 
     .item5 img {
-        max-width: 330px;
-        max-height: 400px;
+        max-width: 300px;
+        max-height: 300px;
     }
 
     .item6 {
