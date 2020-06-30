@@ -170,9 +170,10 @@
     .main_header {
         /* 記事ヘッダ */
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-items: center;
-        height: 50px;
+        /* align-items: center; */
+        height: 100px;
         width: 50px;
         font-size: 24px;
         border: 1px solid skyblue;
@@ -184,6 +185,8 @@
         /* エリア・期間 */
         font-size: 15px;
         padding: 0 10px;
+        width: 150px;
+        /* background-color: skyblue; */
     }
 
     .btn1 {
