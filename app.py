@@ -87,7 +87,7 @@ def mypage():
 def thread(areaid):
     conn = sqlite3.connect('flaskapp.db')
     c = conn.cursor()
-    # areaidで都道府県のひらがな表示を呼んでくる
+    # areaidで都道府県の文字表示を呼んでくる
     c.execute("select area from Prefecture where No=?", (areaid,))
     area = c.fetchone()
     # areaidで表示記事を絞り込む
