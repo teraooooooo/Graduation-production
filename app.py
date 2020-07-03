@@ -39,7 +39,7 @@ def main(pageid):
     # ページ情報の都道府県Noを日本語に変換
     c.execute("select prefectures from page where ID=?", (pageid,))
     areas = c.fetchone()
-
+    
     c.execute("select area from Prefecture where No=?", (areas))
     area = c.fetchone()
 
@@ -49,7 +49,7 @@ def main(pageid):
     print(page)
     print(story)
     print(area)
-    return render_template('main.html', pageid=pageid, page=page, story=story, area=area)
+    return render_template('main.html', pageid=pageid, page=page, story=story, areas=areas, area=area)
 
 # マイページのユーザー情報・記事一覧表示
 
@@ -239,6 +239,16 @@ def postadd_get(pageid):
 
 @app.route('/postadd/<int:pageid>', methods=["POST"])
 def postadd_post(pageid):
+    # 投稿にユーザー名を付けたい。
+    # if "user_id" in session:
+    # # sessionからuser_idを取得
+    #     user_id = session["user_id"]
+    #     conn = sqlite3.connect('flaskapp.db')
+    #     c = conn.cursor()
+    # # usersのid＝[user_id]で呼び出し
+    #     c.execute("select name, adress, pass from users where id=?", (user_id,))
+    #     user_info = c.fetchone()
+
     upload = request.files['image']
     # uploadで取得したファイル名をlower()で全部小文字にして、ファイルの最後尾の拡張子が'.png', '.jpg', '.jpeg'ではない場合、returnさせる。
     if not upload.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
