@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% block content %}
+    <!-- 前のページに戻るのボタンをつけたい。 -->
+    <!--<div>
+     <form>
+       <input type="button" value="前のページに戻る" onclick="history.go(-1);">
+     </form>
+    </div> -->
 
     <div class="title">記事一覧</div>
     <div class="thread_box">
       <!-- 都道府県名はdbから呼び出して表示 -->
       <div class="area"><p>{{area[0]}}</p></div>
       <!-- メニューの月で記事をselectする -->
-      <div class="month">
-        <form action="#" method="post">
+      <!-- 現在なぜかURLの末尾に ?month=[value]がつく。 -->
+      <!-- <div class="month">
+        <form action="/thread/1" method="GET" enctype="multipart/form-data">
           <select name="month">
             <option value="1">１月</option>
             <option value="2">２月</option>
             <option value="3">３月</option>
             <option value="4">４月</option>
             <option value="5">５月</option>
-            <option value="6">６月</option>
+            <option value="6" selected>６月</option>
             <option value="7">７月</option>
             <option value="8">８月</option>
             <option value="9">９月</option>
@@ -23,15 +30,16 @@
             <option value="11">11月</option>
             <option value="12">12月</option>
           </select>
+          <input type="submit" value="月選択">
         </form>
-      </div>
+      </div> -->
     </div>
 
    <!--日付・タイトルはDBからselect -->
    {% for item in page %}
    <div class="thread_box2">
      <div class="item1">{{item["month"]}}/{{item["date"]}}</div>
-     <div class="item2">{{item["title"]}}</div>
+     <div class="item2"><a href="/main/{{item['pageid']}}">{{item["title"]}}</a></div>
    </div>
    {% endfor %}
   

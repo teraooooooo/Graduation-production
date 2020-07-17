@@ -72,7 +72,10 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 24px;
+}
+
+.menu_item a:hover {
+    color: yellow;
 }
 
 .menu_item {
@@ -94,6 +97,7 @@ footer {
     height: 150px;
     /* background-color: blue; */
 }
+
 
 /* 記事一覧 thread.htmlの設定  */
 
@@ -161,7 +165,8 @@ footer {
     align-items: center;
     flex-direction: column;
     background-color: skyblue;
-    margin: 10px 200px;
+    min-width: 440px;
+    margin: 10px 20%;
 }
 
 .item5 {
@@ -231,6 +236,16 @@ footer {
     margin: 10px 10%;
 }
 
+.mypg_box3 {
+    /* マイページの記事一覧 */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 26px;
+    border: 1px solid skyblue;
+    margin: 10px 42%;
+}
+
 .my_item {
     min-width: 10%;
 }
@@ -293,25 +308,75 @@ section p {
 #sec1 h1 {
     font-size: 100px;
     color: #fff;
-    padding: 150px 50px 0 0;
-    margin-right: 700px;
+    /* padding: 150px 50px 0 0;
+    margin-right: 700px; */
+    text-align: left;
+    margin: 0 auto;
+    padding: 140px 0px 0px 30px;
 }
 
 #sec1 h2 {
     font-size: 20px;
     color: yellow;
-    margin-right: 770px;
+    margin-right: 700px;
     margin-bottom: 100px;
 }
 
 
 #sec2 a {
     font-size: 30px;
+    margin: 3px;
 }
 
 #sec2 a:hover {
-    color: tomato;
+    color: yellow;
 }
+
+.ind1 {
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #03A9F4;
+    /*色*/
+    border: solid 1px #0f9ada;
+    /*線色*/
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ind1 {
+    /*押したとき*/
+    border: solid 1px #03A9F4;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+
+.ind2 {
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #03A9F4;
+    /*色*/
+    border: solid 1px #0f9ada;
+    /*線色*/
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ind2 {
+    /*押したとき*/
+    border: solid 1px #03A9F4;
+    box-shadow: none;
+    text-shadow: none;
+}
+
 
 /* TOPのCSSここまで */
 
@@ -319,17 +384,24 @@ section p {
 
 .log0 {
     height: 300px;
-    width: 500px;
-    background-color: white;
+    width: 700px;
+    background-color: #ccffff;
     margin: 0 auto;
+    border: solid black;
 }
 
 .log1 {
+    margin-top: 30px;
     color: black;
 
 }
 
-* ここから secondページ */ h1 {
+.alert {
+    color: red
+}
+
+/*  ここから secondページ */
+h1 {
     color: black;
     font-size: 30px;
     margin-left: 600px;
@@ -436,7 +508,50 @@ section p {
 /* ここからnewページ(アカウント登録) */
 .new1 {
     height: 300px;
-    width: 500px;
-    background-color: white;
+    width: 700px;
+    background-color: #ccffff;
     margin: 0 auto;
+    border: solid black;
+}
+
+.new2 {
+    margin-top: 55px;
+}
+
+/* ここから/pageadd */
+.trav {
+    /* font-size: 15px; */
+    margin: 0 auto;
+}
+
+.trav h2 {
+    font-size: 20px;
+    text-align: center;
+    font-family: "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", "Meiryo", "HGPｺﾞｼｯｸM", "Osaka", "ＭＳ Ｐゴシック", sans-serif, Century Gothic, Arial;
+}
+
+.traa {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.trav1 {
+    height: 335px;
+    width: 700px;
+    background-color: #ccffff;
+    margin: 0 auto;
+    border: solid black;
+}
+
+.trav2 {
+    margin: 2px;
+}
+
+/* ここからpostadd */
+.pos0 {
+    margin: 0 auto;
+    text-align: center;
+    background-color: #ccffff;
+    height: 330px;
+    width: 700px;
 }
